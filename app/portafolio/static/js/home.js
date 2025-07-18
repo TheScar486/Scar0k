@@ -24,3 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', checkVisibility); // Por si cambia el tamaño de la ventana
     checkVisibility(); // Ejecuta una vez al cargar para los elementos que ya son visibles
 });
+
+function keepAlive(url, intervalInMinutes = 14) {
+  setInterval(() => {
+    fetch(url)
+      .then(response => {
+        console.log(`[Ping] ${url} - Status: ${response.status}`);
+      })
+      .catch(error => {
+        console.error(`[Ping Error] ${error}`);
+      });
+  }, intervalInMinutes * 60 * 1000);
+}
+
+// Tu URL de Render aquí
+keepAlive("https://tu-app-de-render.onrender.com");
