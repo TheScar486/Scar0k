@@ -1,29 +1,37 @@
-portafolio/
-    migracions/
+portafolio_django/
     __init__.py
-    admin.py
+    app.py
+    asgi.py
+    render.yaml
+    settings.py
+    utls.py
+    wsgi.py
+portafolio/
+    portafolio/
+        templates/
+            index.html
+    __init__.py
     apps.py
     models.py
     test.py
+    urls.py
     views.py
-stati/
-    css/
-        home_claro.css
-        home_oscuro.css
-        home.css
-        theme-swither.css
-    img/
-        logo.png
-    js/
+    staticfiles/
+        admin/
+            css/
+            img/
+            js/
+        css/
+            home_claro.css
+            home_oscuro.css
+            home.py
+            theme-switcher.css
+        img/
+        js/
         hero_canva.js
         home.js
-        theme-switcher.js
-template/
-    index.html
-env/
-__init__.py
-app.py
+        theme-switcher
+venv/
+db.sqlite
 manage.py
-settings.py
-urls.py
-wsgi.py
+requirements.txt
