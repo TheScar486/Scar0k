@@ -1,44 +1,4 @@
 /* ========================================= */
-/* --- 1. Variables CSS (Modo Oscuro Predeterminado) --- */
-/* ========================================= */
-:root {
-    /* Colores base para el modo oscuro */
-    --color-primary-dark: #1a1a2e; /* Fondo principal oscuro */
-    --color-secondary-dark: #0f3460; /* Fondo secundario oscuro (e.g., para el header) */
-    --color-tertiary-dark: #0a1128; /* Fondo terciario oscuro (e.g., hover de tarjetas) */
-    --color-text-light: #f4f4f4; /* Texto principal claro */
-    --color-text-muted: #a0a0a0; /* Texto secundario/desactivado */
-    --color-text-card-description: #b0b0b0; /* Descripción en tarjetas */
-
-    /* Colores de acento (para elementos interactivos, títulos, etc.) */
-    --color-accent: #e94560; /* Color principal de acento (rosa/rojo) */
-    --color-accent-darker: #c2334b; /* Acento un poco más oscuro para hover */
-
-    /* Colores de botones específicos */
-    --color-button-fill-normal-bg: #f4f4f4; /* Fondo para botón relleno (claro) */
-    --color-button-fill-normal-text: #0f3460; /* Texto para botón relleno (oscuro) */
-    --color-button-outline-normal-border: #a0a0a0; /* Borde para botón delineado (gris) */
-    --color-button-outline-normal-text: #a0a0a0; /* Texto para botón delineado (gris) */
-    --color-button-outline-hover-fill: #e94560; /* Relleno hover para botón delineado */
-    --color-button-outline-hover-text: #f4f4f4; /* Texto hover para botón delineado */
-
-    /* Sombras */
-    --shadow-light: rgba(0, 0, 0, 0.2);
-    --shadow-medium: rgba(0, 0, 0, 0.4);
-    --shadow-strong: rgba(0, 0, 0, 0.6);
-
-    /* Bordes y divisores */
-    --border-divider: rgba(255, 255, 255, 0.1); /* Divisor sutil */
-    --border-accent-subtle: rgba(233, 69, 96, 0.2); /* Borde de acento sutil */
-
-    /* Transiciones */
-    --transition-speed-fast: 0.1s;
-    --transition-speed-medium: 0.3s;
-    --transition-speed-slow: 0.5s;
-    --transition-speed-slower: 0.7s;
-}
-
-/* ========================================= */
 /* --- 2. Estilos Generales y Reseteos --- */
 /* ========================================= */
 html {
