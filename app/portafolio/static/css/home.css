@@ -38,6 +38,128 @@ header {
     will-change: transform, background, box-shadow;
 }
 
+/* ... (tu CSS existente) ... */
+
+/* Header Styles */
+header {
+    /* ... (tus estilos existentes de header) ... */
+    position: sticky; /* Mantenerlo pegajoso en la parte superior */
+    top: 0;
+    z-index: 1000;
+    /* Asegúrate de que tenga suficiente padding para que el botón no se pegue */
+    padding: 15px 40px; 
+    /* Si el botón va a ser absoluto dentro, el header necesita position: relative */
+    position: relative; 
+}
+
+/* Estilos para el botón de cambio de tema */
+.theme-toggle-button {
+    background-color: var(--color-accent); /* O un color que combine con tu tema */
+    color: var(--color-text-light);
+    border: none;
+    border-radius: 50%; /* Para hacerlo redondo */
+    width: 45px; /* Define un tamaño fijo */
+    height: 45px; /* Define un tamaño fijo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    flex-shrink: 0; /* Evita que se encoja en flexbox */
+    margin-left: 20px; /* Un poco de espacio a la izquierda si está en flex */
+    z-index: 1001; /* Asegúrate de que esté por encima de otros elementos del header si hay superposiciones */
+}
+
+.theme-toggle-button:hover {
+    background-color: var(--color-accent-darker);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Si quieres que flote en la esquina superior derecha del header (más complejo con flex) */
+/*
+.theme-toggle-button {
+    position: absolute;
+    top: 15px; // Ajusta según el padding del header
+    right: 40px; // Ajusta según el padding del header
+    background-color: var(--color-accent);
+    color: var(--color-text-light);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    z-index: 1001;
+}
+*/
+
+/* --- MEDIA QUERY PARA MÓVILES (768px) --- */
+@media (max-width: 768px) {
+    header {
+        flex-direction: row; /* Asegúrate que el header siga siendo row para logo y toggle */
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px; /* Ajusta padding para móviles */
+    }
+
+    /* Ajuste para el botón de alternar tema en móviles */
+    .theme-toggle-button {
+        margin-left: 15px; /* Espacio con el menú hamburguesa */
+        order: 3; /* Para que quede a la derecha si lo quieres en un orden específico */
+    }
+
+    .menu-toggle {
+        display: block; /* Asegúrate de que el toggle del menú sea visible */
+        order: 2; /* Para que quede entre el logo y el botón de tema, si quieres */
+    }
+
+    .logo-container {
+        width: auto; /* Permite que el logo ocupe solo el espacio necesario */
+        margin-bottom: 0;
+        justify-content: flex-start; /* Alinea el logo a la izquierda */
+        order: 1;
+    }
+
+    header.menu-open {
+        flex-direction: column; /* Cuando el menú está abierto, el header se apila */
+        align-items: flex-start;
+    }
+    header.menu-open .logo-container {
+        width: 100%;
+        justify-content: space-between; /* Mantiene logo y toggle alineados */
+        margin-bottom: 0; /* Ajusta si necesitas espacio adicional */
+    }
+    header.menu-open .menu-toggle {
+        display: block; /* Asegura que el toggle siga visible */
+    }
+    header.menu-open .theme-toggle-button {
+        /* Asegura que el botón siga visible y posicionado correctamente cuando el menú está abierto */
+        position: static; /* Puede que necesites cambiarlo a static o dejarlo relativo */
+        margin-left: 0; /* Elimina márgenes extra si se apila */
+    }
+    
+    /* Cuando el menú está abierto, el theme-toggle-button debería seguir la misma lógica
+       que el logo-container o el menu-toggle para no desaparecer. */
+    /* La idea es que se mantenga arriba, quizás junto al botón de menú o el logo */
+}
+
+@media (max-width: 480px) {
+    /* ... (tus estilos existentes para 480px) ... */
+    .theme-toggle-button {
+        width: 40px;
+        height: 40px;
+        font-size: 1em;
+    }
+}
+
 /* Logo & App Name */
 header .logo-container {
     display: flex;

@@ -11,9 +11,10 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
 <body>
-    <button id="theme-toggle-button" class="theme-toggle-button" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; padding: 10px 15px; background-color: #8a3ab9; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1.2em; display: flex; align-items: center; justify-content: center;">
+    {# ELIMINA ESTE BOTÓN DE AQUÍ - LO MOVEREMOS DENTRO DEL HEADER #}
+    {# <button id="theme-toggle-button" class="theme-toggle-button" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; padding: 10px 15px; background-color: #8a3ab9; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1.2em; display: flex; align-items: center; justify-content: center;">
         <i class="fa-solid fa-moon"></i>
-    </button>
+    </button> #}
 
     <header>
         <div class="logo-container">
@@ -45,6 +46,12 @@
             <a href="#">Blog</a>
             <a href="#">Testimonios</a>
         </div>
+        
+        {# AÑADE EL BOTÓN AQUÍ, DENTRO DEL HEADER #}
+        <button id="theme-toggle-button" class="theme-toggle-button" aria-label="Alternar modo claro/oscuro">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+
     </header>
 
     <main>
@@ -213,13 +220,13 @@
         </div>
     </footer>
 
-     <script src="{% static 'js/home.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
     <script src="{% static 'js/theme-switcher.js' %}"></script>
     <script src="{% static 'js/hero_canva.js' %}"></script>
     <script>
     document.getElementById('whatsapp-button').addEventListener('click', function() {
         const phone = '50245064229';  // Tu número con código de país
-        const message = encodeURIComponent('Hola Scar0k, vi tu portafolio y quisiera consultarte sobre mi proyecto web. ¿Podrías ayudarme?');
+        const message = encodeURIComponent('Hola Scar0k, vi tu portafolio y quisiera consultarte sobre mi proyecto web. ¿Podrías brindarme más información?');
         window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
     });
 </script>
