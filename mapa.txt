@@ -1,0 +1,29 @@
+portafolio/
+    migracions/
+    __init__.py
+    admin.py
+    apps.py
+    models.py
+    test.py
+    views.py
+stati/
+    css/
+        home_claro.css
+        home_oscuro.css
+        home.css
+        theme-swither.css
+    img/
+        logo.png
+    js/
+        hero_canva.js
+        home.js
+        theme-switcher.js
+template/
+    index.html
+env/
+__init__.py
+app.py
+manage.py
+settings.py
+urls.py
+wsgi.py

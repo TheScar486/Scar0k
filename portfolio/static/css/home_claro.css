@@ -1,0 +1,55 @@
+:root {
+    /* Colores Principales - Claros (Blancos, Grises Claros) */
+    --color-primary-dark: #f8f9fa; /* Fondo claro principal (blanco muy sutil) */
+    --color-secondary-dark: #ffffff; /* Fondo del header / elementos ligeramente más claros (blanco puro) */
+    --color-tertiary-dark: #e9ecef; /* Fondo de las tarjetas de características / elementos secundarios (gris muy claro) */
+    --color-footer-dark: #dee2e6; /* Fondo del footer (gris claro) */
+
+    /* Colores de Acento y Interacción - Morado Profundo (se mantiene del tema oscuro) */
+    --color-accent: #8a3ab9; /* Color vibrante para títulos, hover, etc. - Morado profundo */
+    --color-accent-darker: #782ca3; /* Un tono un poco más oscuro para hover de acento */
+    --color-button-primary: #8a3ab9; /* Color principal de los botones - Morado sólido */
+    --color-button-primary-hover: #782ca2; /* Hover para botones - Morado más oscuro */
+
+    /* Colores de Texto - Oscuros para fondos claros */
+    --color-text-light: #212529; /* <<-- CAMBIO CLAVE: Texto oscuro para fondos claros (era blanco en el oscuro) */
+    --color-text-muted: #6c757d; /* Texto gris más suave */
+    --color-text-card-description: #495057; /* Texto en descripciones de tarjetas */
+    --color-text-dark: #ffffff; /* <<-- CAMBIO CLAVE: Blanco puro, usado cuando necesitamos texto blanco sobre fondos oscuros (ej: botón relleno) */
+
+    /* Nuevas variables para botones */
+    --color-background-white: #ffffff; /* Define el blanco (se mantiene) */
+
+    --color-button-fill-normal-bg: #000000; /* Fondo normal del botón "Empieza Gratis" (Negro) */
+    --color-button-fill-normal-text: var(--color-text-dark); /* Texto normal del botón "Empieza Gratis" (BLANCO, ya que text-dark ahora es blanco) */
+
+    --color-button-outline-normal-border: var(--color-text-light); /* Borde normal del botón "Contacta" (NEGRO, ya que text-light ahora es negro) */
+    --color-button-outline-normal-text: var(--color-text-light); /* Texto normal del botón "Contacta" (NEGRO, ya que text-light ahora es negro) */
+    
+    --color-button-outline-hover-fill: var(--color-text-light); /* Relleno de hover del botón "Contacta" (NEGRO, ya que text-light ahora es negro) */
+    --color-button-outline-hover-text: var(--color-text-dark); /* Texto de hover del botón "Contacta" (BLANCO, ya que text-dark ahora es blanco) */
+
+    /* Sombras - Ligeras para temas claros */
+    --shadow-light: rgba(0, 0, 0, 0.1); /* Sombras más sutiles */
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+    --shadow-strong: rgba(0, 0, 0, 0.2);
+
+    /* Bordes y Transiciones */
+    --border-accent-subtle: rgba(138, 58, 185, 0.1); /* Adaptado al acento morado (más sutil) */
+    --border-divider: rgba(0, 0, 0, 0.1); /* Línea divisoria más visible (oscura) */
+    --transition-speed-fast: 0.2s;
+    --border-button-outline-width: 0.5px;
+    --transition-speed-medium: 0.3s;
+    --transition-speed-slow: 0.4s;
+    --transition-speed-slower: 0.8s;
+
+    /* Colores para las Partículas - Tema Claro (nombres originales, valores claros) */
+    --particle-color-dark: #495057; /* Gris oscuro para las partículas en modo claro */
+    --particle-line-color-dark: rgba(73, 80, 87, 1); /* Gris oscuro para las líneas en modo claro */
+
+    /* ... degradados ... */
+    --color-primary-dark: #f8f9fa; /* Fondo claro principal */
+    --color-primary-dark-blended: rgba(248, 249, 250, 0.7); /* ¡NUEVA VARIABLE! Versión semitransparente para mezclar */
+    --color-secondary-dark: #ffffff; /* Fondo del header / elementos ligeramente más claros */
+    /* ... el resto de tus variables ... */
+}

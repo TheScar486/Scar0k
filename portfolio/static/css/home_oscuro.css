@@ -1,0 +1,55 @@
+:root {
+    /* Colores Principales - Negro con Matices Azules Oscuros */
+    --color-primary-dark: #0c0e16; /* Fondo oscuro principal - Negro con un toque de azul muy oscuro */
+    --color-secondary-dark: #141824; /* Fondo del header - Negro con más azul oscuro */
+    --color-tertiary-dark: #1d2333; /* Fondo de las tarjetas de características - Gris muy oscuro con un matiz azul perceptible */
+    --color-footer-dark: #080a10; /* Fondo del footer - Negro aún más profundo con un sutil azul */
+
+    /* Colores de Acento y Interacción - Morado Profundo */
+    --color-accent: #8a3ab9; /* Color vibrante para títulos, hover, etc. - Morado profundo */
+    --color-accent-darker: #782ca3; /* Un tono un poco más oscuro para hover de acento */
+    --color-button-primary: #5e2eb3; /* Color principal de los botones - Morado sólido */
+    --color-button-primary-hover: #7242c2; /* Hover para botones - Morado más claro */
+
+    /* Colores de Texto */
+    --color-text-light: #f0f0f0; /* Texto claro para fondos oscuros */
+    --color-text-muted: #a0a0a0; /* Texto gris más suave */
+    --color-text-card-description: #c0c0c0; /* Texto en descripciones de tarjetas */
+    --color-text-dark: #000000; /* Aseguramos que este sea negro puro para el texto de los botones claros */
+
+    /* Nuevas variables para botones */
+    --color-background-white: #ffffff; /* <<-- AÑADE ESTA LÍNEA CLAVE: Define el blanco para ser referenciado */
+
+    --color-button-fill-normal-bg: var(--color-background-white); /* Fondo normal del botón "Empieza Gratis" (Blanco) */
+    --color-button-fill-normal-text: var(--color-text-dark); /* Texto normal del botón "Empieza Gratis" (Negro) */
+
+    --color-button-outline-normal-border: var(--color-text-light); /* Borde normal del botón "Contacta" (Blanco) */
+    --color-button-outline-normal-text: var(--color-text-light); /* Texto normal del botón "Contacta" (Blanco) */
+    
+    --color-button-outline-hover-fill: var(--color-background-white); /* <<-- CORRECTO: Relleno de hover del botón "Contacta" (Blanco) */
+    --color-button-outline-hover-text: var(--color-text-dark); /* <<-- CORRECTO: Texto de hover del botón "Contacta" (Negro) */
+
+    /* Sombras */
+    --shadow-light: rgba(0, 0, 0, 0.4);
+    --shadow-medium: rgba(0, 0, 0, 0.5);
+    --shadow-strong: rgba(0, 0, 0, 0.7);
+
+    /* Bordes y Transiciones */
+    --border-accent-subtle: rgba(138, 58, 185, 0.2); /* Adaptado al acento morado */
+    --border-divider: rgba(255, 255, 255, 0.1); /* Línea divisoria más sutil */
+    --transition-speed-fast: 0.2s;
+    --border-button-outline-width: 0.5px;
+    --transition-speed-medium: 0.3s;
+    --transition-speed-slow: 0.4s;
+    --transition-speed-slower: 0.8s;
+
+    /* Colores para las Partículas - Tema Oscuro */
+    --particle-color-dark: #ffffff; /* ¡Asegúrate de que sea blanco puro! */
+    --particle-line-color-dark: rgba(255, 255, 255, 1); /* ¡Base blanca para las líneas! */
+
+    /* ... degradados ... */
+    --color-primary-dark: #0c0e16; /* Fondo oscuro principal */
+    --color-primary-dark-blended: rgba(12, 14, 22, 0.7); /* ¡NUEVA VARIABLE! Versión semitransparente para mezclar */
+    --color-secondary-dark: #141824; /* Fondo del header */
+    /* ... el resto de tus variables ... */
+}
