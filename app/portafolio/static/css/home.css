@@ -1,22 +1,84 @@
-body {
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    margin: 0 auto;
-    padding: 0 20px;
-    box-sizing: border-box;
-    color: var(--color-text-light);
-    background-color: var(--color-primary-dark);
-    max-width: 1440px;
-    /* Optimización: Sugerir al navegador que estas propiedades cambiarán para optimizar el rendimiento */
-    will-change: transform, opacity;
+/* ========================================= */
+/* --- 1. Variables CSS (Modo Oscuro Predeterminado) --- */
+/* ========================================= */
+:root {
+    /* Colores base para el modo oscuro */
+    --color-primary-dark: #1a1a2e; /* Fondo principal oscuro */
+    --color-secondary-dark: #0f3460; /* Fondo secundario oscuro (e.g., para el header) */
+    --color-tertiary-dark: #0a1128; /* Fondo terciario oscuro (e.g., hover de tarjetas) */
+    --color-text-light: #f4f4f4; /* Texto principal claro */
+    --color-text-muted: #a0a0a0; /* Texto secundario/desactivado */
+    --color-text-card-description: #b0b0b0; /* Descripción en tarjetas */
+
+    /* Colores de acento (para elementos interactivos, títulos, etc.) */
+    --color-accent: #e94560; /* Color principal de acento (rosa/rojo) */
+    --color-accent-darker: #c2334b; /* Acento un poco más oscuro para hover */
+
+    /* Colores de botones específicos */
+    --color-button-fill-normal-bg: #f4f4f4; /* Fondo para botón relleno (claro) */
+    --color-button-fill-normal-text: #0f3460; /* Texto para botón relleno (oscuro) */
+    --color-button-outline-normal-border: #a0a0a0; /* Borde para botón delineado (gris) */
+    --color-button-outline-normal-text: #a0a0a0; /* Texto para botón delineado (gris) */
+    --color-button-outline-hover-fill: #e94560; /* Relleno hover para botón delineado */
+    --color-button-outline-hover-text: #f4f4f4; /* Texto hover para botón delineado */
+
+    /* Sombras */
+    --shadow-light: rgba(0, 0, 0, 0.2);
+    --shadow-medium: rgba(0, 0, 0, 0.4);
+    --shadow-strong: rgba(0, 0, 0, 0.6);
+
+    /* Bordes y divisores */
+    --border-divider: rgba(255, 255, 255, 0.1); /* Divisor sutil */
+    --border-accent-subtle: rgba(233, 69, 96, 0.2); /* Borde de acento sutil */
+
+    /* Transiciones */
+    --transition-speed-fast: 0.1s;
+    --transition-speed-medium: 0.3s;
+    --transition-speed-slow: 0.5s;
+    --transition-speed-slower: 0.7s;
 }
 
+/* ========================================= */
+/* --- 2. Estilos Generales y Reseteos --- */
+/* ========================================= */
+html {
+    scroll-behavior: smooth; /* Desplazamiento suave al hacer clic en enlaces de anclaje */
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0 20px; /* Padding horizontal para el contenido principal */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho/alto */
+    color: var(--color-text-light); /* Color de texto por defecto */
+    background-color: var(--color-primary-dark); /* Color de fondo por defecto */
+    max-width: 1440px; /* Ancho máximo del sitio */
+    margin: 0 auto; /* Centra el body en pantallas grandes */
+    will-change: background-color, color; /* Indica al navegador que estas propiedades cambiarán */
+}
+
+/* Ocultar visualmente pero mantener para accesibilidad */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Contenedor general si lo necesitas, aunque el body ya tiene max-width y margin auto */
 .container {
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Header Styles */
+/* ========================================= */
+/* --- 3. Header y Navegación --- */
+/* ========================================= */
 header {
     background: linear-gradient(
         to right,
@@ -27,148 +89,27 @@ header {
     );
     padding: 15px 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Espacia los elementos: logo a izq, nav/auth/theme a der */
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas más pequeñas */
     box-shadow: 0 4px 8px var(--shadow-light);
-    position: sticky;
+    position: sticky; /* Mantiene el header pegajoso en la parte superior */
     top: 0;
-    z-index: 1000;
-    /* Optimización: Sugerir al navegador que estas propiedades cambiarán */
-    will-change: transform, background, box-shadow;
-}
-
-/* ... (tu CSS existente) ... */
-
-/* Header Styles */
-header {
-    /* ... (tus estilos existentes de header) ... */
-    position: sticky; /* Mantenerlo pegajoso en la parte superior */
-    top: 0;
-    z-index: 1000;
-    /* Asegúrate de que tenga suficiente padding para que el botón no se pegue */
-    padding: 15px 40px; 
-    /* Si el botón va a ser absoluto dentro, el header necesita position: relative */
-    position: relative; 
-}
-
-/* Estilos para el botón de cambio de tema */
-.theme-toggle-button {
-    background-color: var(--color-accent); /* O un color que combine con tu tema */
-    color: var(--color-text-light);
-    border: none;
-    border-radius: 50%; /* Para hacerlo redondo */
-    width: 45px; /* Define un tamaño fijo */
-    height: 45px; /* Define un tamaño fijo */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2em;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    flex-shrink: 0; /* Evita que se encoja en flexbox */
-    margin-left: 20px; /* Un poco de espacio a la izquierda si está en flex */
-    z-index: 1001; /* Asegúrate de que esté por encima de otros elementos del header si hay superposiciones */
-}
-
-.theme-toggle-button:hover {
-    background-color: var(--color-accent-darker);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Si quieres que flote en la esquina superior derecha del header (más complejo con flex) */
-/*
-.theme-toggle-button {
-    position: absolute;
-    top: 15px; // Ajusta según el padding del header
-    right: 40px; // Ajusta según el padding del header
-    background-color: var(--color-accent);
-    color: var(--color-text-light);
-    border: none;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2em;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    z-index: 1001;
-}
-*/
-
-/* --- MEDIA QUERY PARA MÓVILES (768px) --- */
-@media (max-width: 768px) {
-    header {
-        flex-direction: row; /* Asegúrate que el header siga siendo row para logo y toggle */
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 20px; /* Ajusta padding para móviles */
-    }
-
-    /* Ajuste para el botón de alternar tema en móviles */
-    .theme-toggle-button {
-        margin-left: 15px; /* Espacio con el menú hamburguesa */
-        order: 3; /* Para que quede a la derecha si lo quieres en un orden específico */
-    }
-
-    .menu-toggle {
-        display: block; /* Asegúrate de que el toggle del menú sea visible */
-        order: 2; /* Para que quede entre el logo y el botón de tema, si quieres */
-    }
-
-    .logo-container {
-        width: auto; /* Permite que el logo ocupe solo el espacio necesario */
-        margin-bottom: 0;
-        justify-content: flex-start; /* Alinea el logo a la izquierda */
-        order: 1;
-    }
-
-    header.menu-open {
-        flex-direction: column; /* Cuando el menú está abierto, el header se apila */
-        align-items: flex-start;
-    }
-    header.menu-open .logo-container {
-        width: 100%;
-        justify-content: space-between; /* Mantiene logo y toggle alineados */
-        margin-bottom: 0; /* Ajusta si necesitas espacio adicional */
-    }
-    header.menu-open .menu-toggle {
-        display: block; /* Asegura que el toggle siga visible */
-    }
-    header.menu-open .theme-toggle-button {
-        /* Asegura que el botón siga visible y posicionado correctamente cuando el menú está abierto */
-        position: static; /* Puede que necesites cambiarlo a static o dejarlo relativo */
-        margin-left: 0; /* Elimina márgenes extra si se apila */
-    }
-    
-    /* Cuando el menú está abierto, el theme-toggle-button debería seguir la misma lógica
-       que el logo-container o el menu-toggle para no desaparecer. */
-    /* La idea es que se mantenga arriba, quizás junto al botón de menú o el logo */
-}
-
-@media (max-width: 480px) {
-    /* ... (tus estilos existentes para 480px) ... */
-    .theme-toggle-button {
-        width: 40px;
-        height: 40px;
-        font-size: 1em;
-    }
+    z-index: 1000; /* Asegura que el header esté por encima de otros contenidos */
+    will-change: background, box-shadow; /* Optimización */
 }
 
 /* Logo & App Name */
 header .logo-container {
     display: flex;
     align-items: center;
+    /* En desktop, el logo-container es el primer elemento */
+    order: 1; 
 }
 header .logo {
-    height: 45px;
+    height: 45px; /* Tamaño del logo */
     margin-right: 12px;
-    filter: brightness(1.2);
+    filter: brightness(1.2); /* Pequeño ajuste para que el logo resalte */
 }
 header .app-name {
     font-size: 2.2em;
@@ -177,41 +118,27 @@ header .app-name {
     letter-spacing: 0.5px;
 }
 
-/* --- ESTILOS POR DEFECTO (DESKTOP) --- */
+/* Navegación principal (Menú de desktop) */
 .main-nav-group {
-    display: flex;
+    display: flex; /* Esencial para desktop */
     align-items: center;
-    flex-grow: 1;
-    justify-content: flex-start;
+    flex-grow: 1; /* Permite que ocupe el espacio disponible */
+    justify-content: flex-start; /* Alinea los enlaces de navegación a la izquierda */
     padding-left: 30px;
-    border-left: 1px solid var(--border-divider);
+    border-left: 1px solid var(--border-divider); /* Separador visual */
     margin-left: 30px;
-}
-
-.auth-buttons {
-    display: flex;
-    gap: 15px;
-    padding-left: 30px;
-    border-left: 1px solid var(--border-divider);
-    margin-left: 30px;
-}
-
-/* Ocultar el botón de hamburguesa por defecto en desktop */
-.menu-toggle {
-    display: none;
-    font-size: 1.8em;
-    color: var(--color-accent);
-    cursor: pointer;
+    /* Por defecto en desktop, es el segundo grupo principal de elementos */
+    order: 2; 
 }
 
 header nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
+    display: flex; /* Para que los ítems del menú estén en línea */
     align-items: center;
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 25px; /* Espacio entre los ítems del menú */
 }
 
 header nav ul li a {
@@ -220,15 +147,15 @@ header nav ul li a {
     font-weight: 600;
     font-size: 1.05em;
     padding: 8px 12px;
-    position: relative;
-    overflow: hidden;
+    position: relative; /* Para el efecto hover */
+    overflow: hidden; /* Oculta el pseudo-elemento antes del hover */
     z-index: 1;
     border-radius: 5px;
     transition: color var(--transition-speed-medium) ease;
-    /* Optimización: Sugerir al navegador que estas propiedades cambiarán */
-    will-change: transform, color;
+    will-change: color, transform; /* Optimización */
 }
 
+/* Efecto de relleno para los enlaces de navegación */
 header nav ul li a::before {
     content: '';
     position: absolute;
@@ -237,59 +164,57 @@ header nav ul li a::before {
     width: 100%;
     height: 100%;
     background-color: var(--color-accent);
-    border-radius: 0;
-    z-index: -1;
-    /* CLAVE DE OPTIMIZACIÓN: Siempre usa transform para la animación de llenado */
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease-out;
-    will-change: transform; /* Agrega will-change aquí también */
+    border-radius: 0; /* Asegura esquinas cuadradas para el relleno */
+    z-index: -1; /* Detrás del texto */
+    transform: scaleX(0); /* Inicialmente oculto */
+    transform-origin: left; /* Crece desde la izquierda */
+    transition: transform 0.3s ease-out; /* Animación de crecimiento */
+    will-change: transform; /* Optimización */
 }
 
 header nav ul li a:hover {
-    color: var(--color-text-light);
+    color: var(--color-text-light); /* El color del texto no cambia si el fondo ya lo cubre */
 }
 
 header nav ul li a:hover::before {
-    transform: scaleX(1);
+    transform: scaleX(1); /* Muestra el relleno */
 }
 
 header nav ul li a:not(:hover)::before {
-    transform-origin: right;
+    transform-origin: right; /* Al salir del hover, se encoge desde la derecha */
     transition: transform 0.3s ease-out;
 }
 
-/* Dropdown Menus */
+/* Dropdown Menus (para "Acerca de") */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
+    display: none; /* Oculto por defecto */
+    position: absolute; /* Posicionado relativo al .dropdown */
     background-color: var(--color-secondary-dark);
     min-width: 180px;
     box-shadow: 0 8px 16px var(--shadow-medium);
     z-index: 1000;
-    border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px; /* Bordes redondeados solo abajo */
     padding: 5px 0;
-    top: 100%;
+    top: 100%; /* Posiciona debajo del elemento padre */
     left: 0;
-    opacity: 0;
-    visibility: hidden;
-    flex-direction: column;
-    /* CLAVE DE OPTIMIZACIÓN: Transición en opacity y transform (si se usa) */
+    opacity: 0; /* Para animación de fade */
+    visibility: hidden; /* Para que no ocupe espacio ni sea interactuable cuando oculto */
+    flex-direction: column; /* Los elementos del dropdown se apilan */
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     transform: translateY(10px); /* Pequeño desplazamiento inicial para la animación */
-    will-change: opacity, transform, visibility;
+    will-change: opacity, transform, visibility; /* Optimización */
 }
 
 .dropdown-content a {
     color: var(--color-text-light);
     padding: 10px 20px;
     text-decoration: none;
-    display: block;
+    display: block; /* Cada enlace ocupa su propia línea */
     text-align: left;
     font-weight: 400;
     font-size: 0.95em;
@@ -298,19 +223,10 @@ header nav ul li a:not(:hover)::before {
     z-index: 1;
     transition: color var(--transition-speed-fast) ease;
     border-radius: 0;
-    will-change: transform, color;
+    will-change: color, transform; /* Optimización */
 }
 
-.dropdown:hover .dropdown-content {
-    display: flex;
-    flex-direction: column;
-    opacity: 1;
-    visibility: visible;
-    top: 100%;
-    left: 0;
-    transform: translateY(0); /* Vuelve a su posición al hacer hover */
-}
-
+/* Efecto de relleno para los enlaces del dropdown */
 .dropdown-content a::before {
     content: '';
     position: absolute;
@@ -321,11 +237,10 @@ header nav ul li a:not(:hover)::before {
     background-color: var(--color-accent);
     border-radius: 0;
     z-index: -1;
-    /* CLAVE DE OPTIMIZACIÓN: Siempre usa transform para la animación de llenado */
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease-out;
-    will-change: transform;
+    will-change: transform; /* Optimización */
 }
 
 .dropdown-content a:hover {
@@ -341,12 +256,31 @@ header nav ul li a:not(:hover)::before {
     transition: transform 0.3s ease-out;
 }
 
-/* Auth Buttons (Login / Register) */
+/* Muestra el dropdown al hacer hover en el padre */
+.dropdown:hover .dropdown-content {
+    display: flex; /* Cambia a flex para mostrarlo */
+    opacity: 1; /* Lo hace visible */
+    visibility: visible;
+    transform: translateY(0); /* Vuelve a su posición original */
+}
+
+
+/* Auth Buttons (Blog / Testimonios) */
+.auth-buttons {
+    display: flex; /* Para que los botones estén en línea */
+    gap: 15px; /* Espacio entre los botones */
+    padding-left: 30px;
+    border-left: 1px solid var(--border-divider); /* Separador visual */
+    margin-left: 30px;
+    /* En desktop, es el tercer grupo principal de elementos */
+    order: 3; 
+}
+
 .auth-buttons a {
     background-color: transparent;
     border: none;
     outline: none;
-    color: var(--color-accent);
+    color: var(--color-accent); /* Color de acento para el texto */
     padding: 8px 12px;
     border-radius: 0;
     text-decoration: none;
@@ -355,11 +289,12 @@ header nav ul li a:not(:hover)::before {
     position: relative;
     overflow: hidden;
     transition: color var(--transition-speed-medium) ease;
-    white-space: nowrap;
+    white-space: nowrap; /* Evita que el texto se rompa */
     z-index: 1;
-    will-change: transform, color;
+    will-change: color, transform; /* Optimización */
 }
 
+/* Efecto de relleno para los botones de autenticación */
 .auth-buttons a::before {
     content: '';
     position: absolute;
@@ -370,11 +305,10 @@ header nav ul li a:not(:hover)::before {
     background-color: var(--color-accent);
     border-radius: 0;
     z-index: -1;
-    /* CLAVE DE OPTIMIZACIÓN: Siempre usa transform para la animación de llenado */
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease-out;
-    will-change: transform;
+    will-change: transform; /* Optimización */
 }
 
 .auth-buttons a:hover {
@@ -390,140 +324,51 @@ header nav ul li a:not(:hover)::before {
     transition: transform 0.3s ease-out;
 }
 
-/* --- MEDIA QUERY PARA TABLETS (1024px) --- */
-@media (max-width: 1024px) {
-    header {
-        padding: 15px 25px;
-        /* No forzamos flex-direction: column aquí para mantener el layout de escritorio
-           hasta que el menú hamburguesa se active en 768px.
-           Si quieres que el header se apile en tablets, entonces descomenta lo siguiente:
-           flex-direction: column;
-           align-items: flex-start; */
-    }
-    /* Eliminadas las redefiniciones de ::before y ::after que usaban 'width' */
+/* Botón de Hamburguesa (para móviles) */
+.menu-toggle {
+    display: none; /* Oculto por defecto en desktop */
+    font-size: 1.8em;
+    color: var(--color-accent);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    order: 2; /* Orden para que esté entre el logo y el botón de tema en móviles */
+    margin-left: auto; /* Empuja el toggle a la derecha, creando espacio */
+    will-change: transform; /* Optimización */
 }
 
-/* --- ESTILOS RESPONSIVOS PARA EL MENÚ HAMBURGUESA (MÓVILES: 768px) --- */
-@media (max-width: 768px) {
-    header {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 20px;
-    }
-
-    .main-nav-group,
-    .auth-buttons {
-        /* Oculta por defecto en móviles, se muestra con .active */
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        margin-left: 0;
-        border-left: none;
-        padding-left: 0;
-        /* Optimización: Agrega transiciones para una aparición/desaparición suave */
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        opacity: 0; /* Empieza invisible */
-        transform: translateY(-10px); /* Pequeño desplazamiento inicial */
-        will-change: opacity, transform;
-    }
-
-    .main-nav-group.active,
-    .auth-buttons.active {
-        display: flex; /* Sobrescribe display: none; */
-        opacity: 1; /* Se vuelve visible */
-        transform: translateY(0); /* Vuelve a su posición original */
-    }
-
-    header nav ul {
-        flex-direction: column;
-        gap: 15px;
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    header nav ul li a {
-        padding: 12px 0;
-        font-size: 1.1em;
-        width: 100%;
-    }
-
-    .auth-buttons {
-        gap: 10px;
-        margin-top: 15px;
-    }
-    .auth-buttons a {
-        width: 100%;
-        padding: 12px 0;
-    }
-
-    /* Mostrar el icono de hamburguesa solo en este breakpoint */
-    .menu-toggle {
-        display: block;
-    }
-
-    /* Ajustes para el dropdown en móvil */
-    .dropdown {
-        width: 100%;
-    }
-    .dropdown-content {
-        position: static; /* Cambia a estático para que se muestre en el flujo normal */
-        width: 100%;
-        background-color: var(--color-secondary-dark);
-        box-shadow: none;
-        border-radius: 0;
-        opacity: 1; /* Siempre visible cuando se activa el menú principal */
-        visibility: visible; /* Siempre visible cuando se activa el menú principal */
-        padding: 0;
-        transform: translateY(0); /* Resetea la transformación */
-    }
-    .dropdown-content a {
-        padding: 10px 30px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    /* Para el dropdown en móvil, el "hover" podría ser un clic si no es un menú abierto por JS */
-    .dropdown:hover .dropdown-content {
-        display: flex;
-    }
-
-    /* --- CAMBIO DEL LAYOUT DEL HEADER CUANDO EL MENÚ ESTÁ ABIERTO --- */
-    header.menu-open {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    header.menu-open .logo-container {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+/* Botón de Cambio de Tema (Light/Dark Mode) */
+.theme-toggle-button {
+    background-color: var(--color-accent);
+    color: var(--color-text-light);
+    border: none;
+    border-radius: 50%; /* Lo hace redondo */
+    width: 45px; /* Tamaño fijo */
+    height: 45px; /* Tamaño fijo */
+    display: flex; /* Para centrar el icono */
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em; /* Tamaño del icono */
+    cursor: pointer;
+    box-shadow: 0 2px 8px var(--shadow-light);
+    transition: background-color var(--transition-speed-medium) ease, transform var(--transition-speed-fast) ease, box-shadow var(--transition-speed-medium) ease;
+    flex-shrink: 0; /* Evita que se encoja en flexbox */
+    margin-left: 20px; /* Espacio con los auth-buttons */
+    z-index: 1001; /* Asegura que esté por encima de casi todo */
+    order: 4; /* Lo coloca al final de los elementos del header en desktop */
+    will-change: background-color, transform, box-shadow; /* Optimización */
 }
 
-/* Media query para ajustar tamaños de fuente/padding en móviles pequeños */
-@media (max-width: 480px) {
-    header .logo {
-        height: 35px;
-    }
-    header .app-name {
-        font-size: 1.5em;
-    }
-    .hero-section h1 {
-        font-size: 1.8em;
-    }
-    .hero-section p {
-        font-size: 0.9em;
-    }
-    .auth-buttons a {
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
-    .feature-card {
-        padding: 20px;
-    }
+.theme-toggle-button:hover {
+    background-color: var(--color-accent-darker);
+    transform: translateY(-2px); /* Pequeño efecto de elevación */
+    box-shadow: 0 4px 12px var(--shadow-medium);
 }
 
-/* Hero Section */
+/* ========================================= */
+/* --- 4. Hero Section --- */
+/* ========================================= */
 .hero-section {
     background: linear-gradient(
         to right,
@@ -538,29 +383,30 @@ header nav ul li a:not(:hover)::before {
     align-items: center;
     justify-content: center;
     min-height: 500px;
-    overflow: hidden;
+    overflow: hidden; /* Importante para el canvas */
     position: relative;
-    will-change: transform, opacity;
+    will-change: transform, opacity; /* Optimización */
 }
 
 .hero-content {
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* Elementos en fila */
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
-    gap: 40px;
-    flex-wrap: wrap;
+    gap: 40px; /* Espacio entre el texto y la animación */
+    flex-wrap: wrap; /* Permite que los elementos se apilen en pantallas pequeñas */
     position: relative;
-    z-index: 2;
+    z-index: 2; /* Para que esté por encima del canvas */
     width: 100%;
+    max-width: 1200px; /* Asegura que no sea demasiado ancho */
 }
 
 .hero-text {
-    flex: 1;
-    min-width: 300px;
+    flex: 1; /* Ocupa el espacio disponible */
+    min-width: 300px; /* Mínimo ancho antes de apilarse */
     text-align: left;
-    padding-right: 20px;
+    padding-right: 20px; /* Espacio a la derecha del texto */
 }
 
 .hero-section h1 {
@@ -579,7 +425,14 @@ header nav ul li a:not(:hover)::before {
     margin-bottom: 30px;
 }
 
-/* CTA Buttons */
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Para que los botones se envuelvan */
+    gap: 20px; /* Espacio entre los botones */
+    margin-top: 30px;
+}
+
+/* Estilos de Botones CTA (Call to Action) */
 .cta-button {
     position: relative;
     overflow: hidden;
@@ -588,11 +441,10 @@ header nav ul li a:not(:hover)::before {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    margin-top: 20px;
     z-index: 1;
     border-radius: 0;
-    transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    will-change: transform, background-color, color, box-shadow, border-color; /* Agrega will-change para el botón base */
+    transition: color var(--transition-speed-medium) ease, background-color var(--transition-speed-medium) ease, box-shadow var(--transition-speed-medium) ease, border-color var(--transition-speed-medium) ease;
+    will-change: background-color, color, box-shadow, border-color, transform;
 }
 
 .cta-button::before {
@@ -603,20 +455,19 @@ header nav ul li a:not(:hover)::before {
     width: 100%;
     height: 100%;
     z-index: -1;
-    /* CLAVE DE OPTIMIZACIÓN: Siempre usa transform para el llenado */
-    transform: scaleX(0);
-    transform-origin: left;
+    transform: scaleX(0); /* Oculto por defecto */
+    transform-origin: left; /* Crece desde la izquierda */
     transition: transform 0.3s ease-out;
-    will-change: transform; /* Agrega will-change aquí también */
+    will-change: transform;
 }
 
-/* 1. Botón "Empieza Gratis" */
+/* Botón "Ver Proyectos" */
 .cta-button.fill-white-dark-border {
     background-color: var(--color-button-fill-normal-bg);
     color: var(--color-button-fill-normal-text);
     border: none;
     padding: 17px 32px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px var(--shadow-light);
 }
 
 .cta-button.fill-white-dark-border::before {
@@ -624,7 +475,7 @@ header nav ul li a:not(:hover)::before {
 }
 
 .cta-button.fill-white-dark-border:hover {
-    color: var(--color-button-fill-normal-text);
+    color: var(--color-text-light); /* Cambia a blanco si el fondo de relleno es de acento */
     box-shadow: 0 6px 15px var(--shadow-medium);
 }
 
@@ -637,7 +488,7 @@ header nav ul li a:not(:hover)::before {
     transition: transform 0.3s ease-out;
 }
 
-/* 2. Botón "Contacta con Ventas" */
+/* Botón "Hablemos de tu Proyecto" */
 .cta-button.outline-dark-text-dark {
     background-color: transparent;
     color: var(--color-button-outline-normal-text);
@@ -664,43 +515,17 @@ header nav ul li a:not(:hover)::before {
     transition: transform 0.3s ease-out;
 }
 
-/* Botón con acento (si aún lo necesitas) */
-.cta-button.accent-filled {
-    background-color: var(--color-accent);
-    color: var(--color-text-light);
-    border: 2px solid var(--color-text-light);
-    padding: 15px 30px;
-}
-
-.cta-button.accent-filled::before {
-    background-color: var(--color-accent-darker);
-}
-
-.cta-button.accent-filled:hover {
-    color: var(--color-text-light);
-    border-color: var(--color-accent-darker);
-    box-shadow: 0 4px 10px var(--shadow-medium);
-}
-
-.cta-button.accent-filled:hover::before {
-    transform: scaleX(1);
-}
-
-.cta-button.accent-filled:not(:hover)::before {
-    transform-origin: right;
-    transition: transform 0.3s ease-out;
-}
-
+/* Sección de Animación (Canvas) */
 .hero-animation {
-    position: relative;
     flex: 1;
     min-width: 300px;
-    height: 500px;
+    height: 500px; /* Altura fija para el canvas */
     overflow: hidden;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    will-change: transform, opacity; /* Si la animación del canvas se mueve/cambia */
+    will-change: transform, opacity; /* Optimización */
 }
 
 .hero-animation canvas {
@@ -709,95 +534,67 @@ header nav ul li a:not(:hover)::before {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
-    /* Optimización: Sugerir al navegador que el canvas cambiará (si es animado) */
-    will-change: transform, opacity;
+    z-index: 1; /* Detrás del texto del hero */
+    will-change: transform, opacity; /* Optimización */
 }
 
-/* Features Grid */
+/* ========================================= */
+/* --- 5. Features Grid (Proyectos y Servicios) --- */
+/* ========================================= */
 .features-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr; /* Una columna por defecto */
+    gap: 40px; /* Espacio entre tarjetas */
     padding: 60px 40px;
     max-width: 1200px;
     margin: 0 auto;
-    justify-items: center;
+    justify-items: center; /* Centra las tarjetas en la cuadrícula */
 }
 
 .feature-card {
+    background-color: var(--color-primary-dark);
     box-shadow: 0 6px 20px var(--shadow-medium);
     padding: 30px;
-    /* CLAVE DE OPTIMIZACIÓN: Transición en transform y box-shadow para eficiencia */
+    border-radius: 8px; /* Bordes ligeramente redondeados */
     transition: transform var(--transition-speed-slow) ease, box-shadow var(--transition-speed-slow) ease, background-color var(--transition-speed-medium) ease;
-    display: flex;
+    display: flex; /* Para organizar la imagen y el texto */
     align-items: center;
-    gap: 25px;
+    gap: 25px; /* Espacio entre imagen y texto */
     text-align: left;
     width: 100%;
-    max-width: 1200px;
-    /* Optimización: Sugerir al navegador que estas propiedades cambiarán */
-    will-change: transform, box-shadow, background-color;
+    max-width: 1200px; /* Asegura que la tarjeta no sea demasiado ancha */
+    will-change: transform, box-shadow, background-color; /* Optimización */
 }
 
 .feature-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-8px); /* Efecto de elevación al pasar el ratón */
     box-shadow: 0 10px 30px var(--shadow-strong);
-    background-color: var(--color-tertiary-dark);
+    background-color: var(--color-tertiary-dark); /* Fondo un poco más oscuro al hacer hover */
 }
 
 .feature-image {
-    max-width: 400px;
+    max-width: 400px; /* Ancho máximo para la imagen */
     height: auto;
-    object-fit: contain;
-    flex-shrink: 0;
-    filter: drop-shadow(0 0 5px var(--color-accent));
-    will-change: filter; /* Si el filtro cambia en interacción, aunque aquí es estático */
+    object-fit: contain; /* Asegura que la imagen se ajuste sin distorsionarse */
+    flex-shrink: 0; /* Evita que la imagen se encoja */
+    filter: drop-shadow(0 0 5px var(--color-accent)); /* Sombra de acento para la imagen */
+    will-change: filter; /* Optimización */
 }
 
 .feature-card .text-content {
-    flex-grow: 1;
+    flex-grow: 1; /* Permite que el contenido de texto ocupe el espacio restante */
 }
 
-/* Reglas para alternar la dirección */
+/* Reglas para alternar la dirección de la imagen/texto */
 .feature-card:nth-child(odd) {
-    flex-direction: row;
+    flex-direction: row; /* Imagen a la izquierda, texto a la derecha */
 }
 
 .feature-card:nth-child(even) {
-    flex-direction: row-reverse;
+    flex-direction: row-reverse; /* Imagen a la derecha, texto a la izquierda */
 }
 
-/* --- Ajustes Responsivos --- */
-@media (max-width: 768px) {
-    .feature-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 25px;
-    }
-
-    .feature-image {
-        max-width: 60%;
-        margin-bottom: 20px;
-    }
-
-    /* Reseteamos la dirección para móviles */
-    .feature-card:nth-child(odd),
-    .feature-card:nth-child(even) {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 576px) {
-    .feature-card {
-        padding: 20px;
-    }
-    .feature-image {
-        max-width: 70%;
-    }
-}
-
-.feature-card h3 {
+.feature-card h2 { /* Cambiado de h3 a h2 según tu HTML */
     color: var(--color-accent);
     font-size: 1.8em;
     margin-bottom: 15px;
@@ -812,7 +609,7 @@ header nav ul li a:not(:hover)::before {
 }
 
 .feature-card p strong {
-    color: var(--color-text-light);
+    color: var(--color-text-light); /* Destaca texto en negrita */
 }
 
 .feature-card ul {
@@ -827,25 +624,27 @@ header nav ul li a:not(:hover)::before {
     color: var(--color-text-card-description);
     margin-bottom: 8px;
     position: relative;
-    padding-left: 25px;
+    padding-left: 25px; /* Espacio para el ícono de la lista */
 }
 
 .feature-card ul li::before {
-    content: '✔️';
+    content: '✔️'; /* Ícono de checkmark */
     color: var(--color-accent);
     position: absolute;
     left: 0;
     top: 0;
 }
 
-/* CTA Section */
+/* ========================================= */
+/* --- 6. Call to Action (CTA) Section --- */
+/* ========================================= */
 .cta-section {
     background-color: var(--color-primary-dark);
     padding: 80px 40px;
     text-align: center;
     color: var(--color-text-light);
     margin-top: 60px;
-    will-change: background-color;
+    will-change: background-color; /* Optimización */
 }
 
 .cta-section h2 {
@@ -865,7 +664,9 @@ header nav ul li a:not(:hover)::before {
     margin-right: auto;
 }
 
-/* Footer Styles */
+/* ========================================= */
+/* --- 7. Footer Styles --- */
+/* ========================================= */
 footer {
     background: linear-gradient(
         to right,
@@ -879,22 +680,22 @@ footer {
     margin-top: 60px;
     border-top: 1px solid var(--border-accent-subtle);
     font-size: 0.95em;
-    will-change: background;
+    will-change: background; /* Optimización */
 }
 
 .footer-content {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 30px;
+    flex-wrap: wrap; /* Permite que las secciones se envuelvan */
+    justify-content: space-around; /* Distribuye el espacio entre secciones */
+    gap: 30px; /* Espacio entre secciones del footer */
     max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 30px;
 }
 
 .footer-section {
-    flex: 1;
-    min-width: 200px;
+    flex: 1; /* Cada sección intenta ocupar el mismo espacio */
+    min-width: 200px; /* Ancho mínimo antes de apilarse */
     padding: 15px;
 }
 
@@ -924,7 +725,7 @@ footer {
     color: var(--color-text-muted);
     text-decoration: none;
     transition: color 0.3s ease;
-    will-change: color;
+    will-change: color; /* Optimización */
 }
 
 .footer-section ul li a:hover {
@@ -934,7 +735,7 @@ footer {
 /* Redes Sociales */
 .social-icons {
     display: flex;
-    gap: 15px;
+    gap: 15px; /* Espacio entre iconos */
     margin-top: 20px;
     flex-wrap: wrap;
 }
@@ -943,12 +744,12 @@ footer {
     color: var(--color-text-muted);
     font-size: 1.8em;
     transition: color 0.3s ease, transform 0.2s ease;
-    will-change: color, transform;
+    will-change: color, transform; /* Optimización */
 }
 
 .social-icons a:hover {
     color: var(--color-accent);
-    transform: translateY(-3px);
+    transform: translateY(-3px); /* Pequeño efecto de elevación */
 }
 
 /* Footer Bottom (Copyright) */
@@ -956,7 +757,7 @@ footer {
     text-align: center;
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08); /* Línea divisoria */
     color: var(--color-text-muted);
     font-size: 0.85em;
 }
@@ -965,131 +766,264 @@ footer {
     margin: 5px 0;
 }
 
-/* Responsividad para el Footer */
+/* ========================================= */
+/* --- 8. Media Queries (Responsividad) --- */
+/* ========================================= */
+
+/* Para pantallas entre 769px y 1024px (Tablets y Laptops pequeñas) */
+@media (max-width: 1024px) {
+    header {
+        padding: 15px 25px;
+    }
+    .main-nav-group, .auth-buttons {
+        margin-left: 20px;
+        padding-left: 20px;
+    }
+    header nav ul {
+        gap: 18px;
+    }
+    header nav ul li a, .auth-buttons a {
+        font-size: 1em;
+    }
+    .hero-section h1 {
+        font-size: 3em;
+    }
+    .hero-section p {
+        font-size: 1.1em;
+    }
+    .features-grid, .cta-section {
+        padding: 50px 30px;
+    }
+    .feature-card {
+        gap: 20px;
+        padding: 25px;
+    }
+    .feature-card h2 {
+        font-size: 1.6em;
+    }
+    .cta-section h2 {
+        font-size: 2.5em;
+    }
+    .cta-button {
+        font-size: 1.1em;
+        padding: 14px 28px;
+    }
+    .cta-button.outline-dark-text-dark {
+        padding: 13px 27px;
+    }
+}
+
+/* Para pantallas de hasta 768px (Móviles y Tablets en vertical) */
 @media (max-width: 768px) {
-    .footer-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+    body {
+        padding: 0 15px; /* Menos padding lateral en móviles */
     }
 
+    header {
+        flex-direction: row; /* Mantiene logo, toggle y botón de tema en la misma fila */
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+    }
+
+    /* Oculta los elementos de navegación y autenticación por defecto en móvil */
+    .main-nav-group,
+    .auth-buttons {
+        display: none; /* Se ocultan */
+        flex-direction: column; /* Para que los enlaces se apilen verticalmente cuando se muestren */
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+        border-left: none;
+        padding-left: 0;
+        /* Transiciones para una aparición/desaparición suave */
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        opacity: 0; /* Inicialmente invisible */
+        transform: translateY(-10px); /* Pequeño desplazamiento inicial */
+        will-change: opacity, transform;
+    }
+
+    /* Clase 'active' (añadida por JS) para mostrar los menús */
+    .main-nav-group.active,
+    .auth-buttons.active {
+        display: flex; /* Sobrescribe display: none; */
+        opacity: 1; /* Se vuelve visible */
+        transform: translateY(0); /* Vuelve a su posición original */
+    }
+
+    /* Mostrar el botón de hamburguesa solo en este breakpoint */
+    .menu-toggle {
+        display: block;
+        order: 2; /* Para que esté a la derecha del logo, antes del theme-toggle */
+        margin-left: auto; /* Empuja el toggle a la derecha, dejando espacio para el logo */
+        margin-right: 15px; /* Espacio entre el toggle y el botón de tema */
+    }
+
+    /* Ajuste para el botón de alternar tema en móviles */
+    .theme-toggle-button {
+        order: 3; /* Asegura que el botón de tema esté al final de la fila en móviles */
+        margin-left: 0; /* Ya no necesita margen extra si el toggle lo empuja */
+        width: 40px; /* Un poco más pequeño para móviles */
+        height: 40px;
+        font-size: 1em;
+    }
+
+    header nav ul {
+        flex-direction: column; /* Apila los ítems del menú */
+        gap: 15px;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    header nav ul li a {
+        padding: 12px 0;
+        font-size: 1.1em;
+        width: 100%;
+    }
+
+    .auth-buttons {
+        gap: 10px;
+        margin-top: 15px;
+    }
+    .auth-buttons a {
+        width: 100%;
+        padding: 12px 0;
+    }
+
+    /* Ajustes para el dropdown en móvil */
+    .dropdown {
+        width: 100%;
+    }
+    .dropdown-content {
+        position: static; /* Cambia a estático para que se muestre en el flujo normal del menú apilado */
+        width: 100%;
+        background-color: var(--color-secondary-dark);
+        box-shadow: none;
+        border-radius: 0;
+        opacity: 1; /* Siempre visible cuando se activa el menú principal en móvil */
+        visibility: visible;
+        padding: 0;
+        transform: translateY(0); /* Resetea la transformación */
+    }
+    .dropdown-content a {
+        padding: 10px 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1); /* Separador entre ítems de dropdown */
+    }
+    /* En móvil, el hover del dropdown principal no es relevante; el JS lo manejará con un clic */
+    .dropdown:hover .dropdown-content {
+        display: flex; /* Asegura que se muestre como flex */
+    }
+
+    /* --- CAMBIO DEL LAYOUT DEL HEADER CUANDO EL MENÚ ESTÁ ABIERTO (clase menu-open en el header) --- */
+    header.menu-open {
+        flex-direction: column; /* Apila todo el contenido del header */
+        align-items: flex-start;
+        padding: 15px 20px;
+    }
+    header.menu-open .logo-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between; /* Mantiene logo y toggles alineados horizontalmente arriba */
+        align-items: center;
+        margin-bottom: 20px; /* Espacio antes del menú desplegado */
+        order: unset; /* Resetea el orden si no es necesario */
+    }
+    header.menu-open .menu-toggle {
+        display: block; /* Asegura que el toggle siga visible */
+        margin-left: auto; /* Mantiene el toggle a la derecha del logo */
+    }
+    header.menu-open .theme-toggle-button {
+        display: block; /* Asegura que el botón de tema siga visible */
+        position: static; /* No debe ser absoluto cuando el header está en columna */
+        margin-left: 15px; /* Mantiene espacio con el toggle */
+        order: unset; /* Resetea el orden si no es necesario */
+    }
+
+    /* Hero Section en móviles */
+    .hero-content {
+        flex-direction: column; /* Apila el texto y la animación */
+        text-align: center;
+        gap: 30px;
+    }
+    .hero-text {
+        padding-right: 0;
+    }
+    .hero-section h1 {
+        font-size: 2.5em;
+    }
+    .hero-section p {
+        font-size: 1em;
+    }
+    .hero-animation {
+        height: 300px; /* Menor altura para la animación en móvil */
+        width: 100%;
+    }
+    .hero-buttons {
+        justify-content: center; /* Centra los botones */
+        flex-direction: column; /* Apila los botones si no caben */
+        align-items: center;
+    }
+    .cta-button {
+        width: 100%; /* Botones de ancho completo */
+        max-width: 300px; /* Limita el ancho máximo */
+    }
+
+    /* Features Grid en móviles */
+    .features-grid {
+        padding: 40px 20px;
+        gap: 30px;
+    }
+    .feature-card {
+        flex-direction: column; /* Siempre apila imagen y texto */
+        text-align: center;
+        padding: 20px;
+    }
+    .feature-image {
+        max-width: 70%; /* Imágenes un poco más grandes en móvil */
+        margin-bottom: 15px;
+    }
+    /* Reseteamos la dirección para móviles ya que siempre es columna */
+    .feature-card:nth-child(odd),
+    .feature-card:nth-child(even) {
+        flex-direction: column;
+    }
+    .feature-card h2 {
+        font-size: 1.5em;
+    }
+    .feature-card p, .feature-card ul li {
+        font-size: 0.95em;
+    }
+
+    /* CTA Section en móviles */
+    .cta-section {
+        padding: 60px 20px;
+        margin-top: 40px;
+    }
+    .cta-section h2 {
+        font-size: 2em;
+    }
+    .cta-section p {
+        font-size: 1em;
+    }
+
+    /* Footer en móviles */
+    .footer-content {
+        flex-direction: column; /* Apila las secciones del footer */
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
     .footer-section {
         min-width: unset;
         width: 100%;
-        padding: 20px 0;
+        padding: 10px 0;
     }
-
-    .footer-section h3 {
-        margin-bottom: 15px;
-    }
-
     .social-icons {
         justify-content: center;
     }
 }
 
-/* Animations (for general scroll animations, not related to hover) */
-.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity var(--transition-speed-slower) ease-out, transform var(--transition-speed-slower) ease-out;
-    will-change: opacity, transform; /* Agrega will-change para animaciones de scroll */
-}
-.animate-on-scroll.in-view {
-    opacity: 1;
-    transform: translateY(0);
-}
-.delay-2 { transition-delay: 0.1s; }
-.delay-3 { transition-delay: 0.2s; }
-.delay-4 { transition-delay: 0.3s; }
-.delay-5 { transition-delay: 0.4s; }
-.delay-6 { transition-delay: 0.5s; }
-
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-    /* Aquí se eliminaron las redefiniciones problemáticas de ::before y ::after
-       que usaban 'width' en lugar de 'transform: scaleX()'.
-       Las animaciones ahora se basan en 'transform' en todos los tamaños. */
-    header {
-        padding: 15px 25px;
-        flex-direction: column; /* Cambia a columna en tablets */
-        align-items: flex-start;
-    }
-    header .logo-container {
-        margin-bottom: 15px;
-        margin-right: 0;
-        width: 100%;
-        justify-content: center;
-    }
-    .main-nav-group {
-        width: 100%;
-        justify-content: center;
-        border-left: none;
-        padding-left: 0;
-        margin-left: 0;
-        margin-bottom: 15px;
-    }
-    header nav ul {
-        flex-direction: column;
-        gap: 15px;
-        width: 100%;
-        text-align: center;
-    }
-    header nav ul li a {
-        padding: 5px 0;
-        background-color: transparent;
-    }
-    .auth-buttons {
-        width: 100%;
-        justify-content: center;
-        margin-left: 0;
-        gap: 10px;
-        border-left: none;
-        padding-left: 0;
-        margin-top: 10px;
-    }
-    .auth-buttons a {
-        flex: 1;
-        text-align: center;
-    }
-}
-
-@media (max-width: 768px) {
-    header {
-        padding: 15px 20px;
-    }
-    header .app-name {
-        font-size: 1.8em;
-    }
-    .hero-section h1 {
-        font-size: 2.2em;
-    }
-    .hero-section p {
-        font-size: 1em;
-    }
-    .features-grid {
-        grid-template-columns: 1fr;
-        padding: 30px 20px;
-    }
-    .feature-card h3 {
-        font-size: 1.6em;
-    }
-    .feature-card p {
-        font-size: 0.95em;
-    }
-    .dropdown-content {
-        min-width: unset;
-        width: 90%;
-        left: 5%;
-        transform: none;
-        position: static;
-        margin-top: 10px;
-    }
-    .dropdown:hover .dropdown-content {
-        top: unset;
-    }
-}
-
+/* Para pantallas de hasta 480px (Móviles pequeños) */
 @media (max-width: 480px) {
     header .logo {
         height: 35px;
@@ -1103,11 +1037,45 @@ footer {
     .hero-section p {
         font-size: 0.9em;
     }
-    .auth-buttons a {
-        padding: 8px 15px;
+    .hero-animation {
+        height: 250px;
+    }
+    .cta-button {
+        font-size: 1em;
+        padding: 12px 25px;
+    }
+    .cta-button.outline-dark-text-dark {
+        padding: 10px 23px;
+    }
+    .feature-image {
+        max-width: 80%;
+    }
+    .theme-toggle-button {
+        width: 35px;
+        height: 35px;
         font-size: 0.9em;
     }
-    .feature-card {
-        padding: 20px;
-    }
 }
+
+/* ========================================= */
+/* --- 9. Animaciones de Scroll (General) --- */
+/* ========================================= */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity var(--transition-speed-slower) ease-out, transform var(--transition-speed-slower) ease-out;
+    will-change: opacity, transform; /* Optimización */
+}
+
+.animate-on-scroll.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Retrasos para las animaciones en cascada */
+.delay-2 { transition-delay: 0.1s; }
+.delay-3 { transition-delay: 0.2s; }
+.delay-4 { transition-delay: 0.3s; }
+.delay-5 { transition-delay: 0.4s; }
+.delay-6 { transition-delay: 0.5s; }
+.delay-7 { transition-delay: 0.6s; }
