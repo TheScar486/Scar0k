@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-a(xvlf#5ow811b))gjm-uvc^h01p9=*r=^(m!322#^t(vmsnba
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Asegúrate de tener estas configuraciones:
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['portafolio-scar0k.onrender.com', 'localhost']
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Application definition
 
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'portfolio',
+    'portafolio',
 ]
 
 MIDDLEWARE = [
@@ -55,12 +55,17 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'portafolio_django.urls'
 
 # Reemplaza tus configuraciones de static files con esto:
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'portfolio/static'),
-]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Archivos estáticos
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # donde se guardan en producción
+
+# Si usas una carpeta personalizada para archivos estáticos durante desarrollo
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'portafolio', 'static'),
+]
 
 # Templates config:
 TEMPLATES = [
@@ -126,8 +131,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
