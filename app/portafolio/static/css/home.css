@@ -1,37 +1,30 @@
-/* El resto de tu CSS (header, nav, auth-buttons, hero, features, footer)
-   NO necesita cambios adicionales ya que las variables se encargan de los colores.
-   Las animaciones de ::before y ::after también seguirán funcionando correctamente. */
-
-/* General Body Styles */
 body {
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    margin: 0 auto; /* Centra el contenido del body */
-    padding: 0 20px; /* Añade un padding horizontal para que el contenido no toque los bordes */
+    margin: 0 auto;
+    padding: 0 20px;
     box-sizing: border-box;
     color: var(--color-text-light);
     background-color: var(--color-primary-dark);
-    max-width: 1440px; /* ¡CLAVE! Limita el ancho máximo del body a 1440px (o el valor que desees) */
+    max-width: 1440px;
+    /* Optimización: Sugerir al navegador que estas propiedades cambiarán para optimizar el rendimiento */
+    will-change: transform, opacity;
 }
 
 .container {
-    max-width: 1440px; /* O el ancho que desees para el contenido principal */
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 0 20px; /* Un poco de padding para los bordes */
+    padding: 0 20px;
 }
-
-/* El resto de tu CSS (variables, body, hero, features, footer)
-   NO necesita cambios adicionales aquí para este problema. */
 
 /* Header Styles */
 header {
     background: linear-gradient(
         to right,
-        var(--color-primary-dark) 0%, /* Inicia con el color del body */
-        var(--color-secondary-dark) 20%, /* El color secundario empieza a dominar */
-        var(--color-secondary-dark) 80%, /* El color secundario se mantiene en el centro */
-        var(--color-primary-dark) 100% /* Termina con el color del body */
+        var(--color-primary-dark) 0%,
+        var(--color-secondary-dark) 20%,
+        var(--color-secondary-dark) 80%,
+        var(--color-primary-dark) 100%
     );
-    /* ... el resto de tus propiedades CSS para .header ... */
     padding: 15px 40px;
     display: flex;
     justify-content: space-between;
@@ -41,6 +34,8 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    /* Optimización: Sugerir al navegador que estas propiedades cambiarán */
+    will-change: transform, background, box-shadow;
 }
 
 /* Logo & App Name */
@@ -81,7 +76,7 @@ header .app-name {
 
 /* Ocultar el botón de hamburguesa por defecto en desktop */
 .menu-toggle {
-    display: none; /* Invisible en desktop */
+    display: none;
     font-size: 1.8em;
     color: var(--color-accent);
     cursor: pointer;
@@ -108,6 +103,8 @@ header nav ul li a {
     z-index: 1;
     border-radius: 5px;
     transition: color var(--transition-speed-medium) ease;
+    /* Optimización: Sugerir al navegador que estas propiedades cambiarán */
+    will-change: transform, color;
 }
 
 header nav ul li a::before {
@@ -120,9 +117,11 @@ header nav ul li a::before {
     background-color: var(--color-accent);
     border-radius: 0;
     z-index: -1;
+    /* CLAVE DE OPTIMIZACIÓN: Siempre usa transform para la animación de llenado */
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease-out;
+    will-change: transform; /* Agrega will-change aquí también */
 }
 
 header nav ul li a:hover {
@@ -158,7 +157,10 @@ header nav ul li a:not(:hover)::before {
     opacity: 0;
     visibility: hidden;
     flex-direction: column;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* CLAVE DE OPTIMIZACIÓN: Transición en opacity y transform (si se usa) */
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    transform: translateY(10px); /* Pequeño desplazamiento inicial para la animación */
+    will-change: opacity, transform, visibility;
 }
 
 .dropdown-content a {
@@ -174,6 +176,7 @@ header nav ul li a:not(:hover)::before {
     z-index: 1;
     transition: color var(--transition-speed-fast) ease;
     border-radius: 0;
+    will-change: transform, color;
 }
 
 .dropdown:hover .dropdown-content {
@@ -183,6 +186,7 @@ header nav ul li a:not(:hover)::before {
     visibility: visible;
     top: 100%;
     left: 0;
+    transform: translateY(0); /* Vuelve a su posición al hacer hover */
 }
 
 .dropdown-content a::before {
@@ -195,9 +199,11 @@ header nav ul li a:not(:hover)::before {
     background-color: var(--color-accent);
     border-radius: 0;
     z-index: -1;
+    /* CLAVE DE OPTIMIZACIÓN: Siempre usa transform para la animación de llenado */
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease-out;
+    will-change: transform;
 }
 
 .dropdown-content a:hover {
@@ -229,6 +235,7 @@ header nav ul li a:not(:hover)::before {
     transition: color var(--transition-speed-medium) ease;
     white-space: nowrap;
     z-index: 1;
+    will-change: transform, color;
 }
 
 .auth-buttons a::before {
@@ -241,9 +248,11 @@ header nav ul li a:not(:hover)::before {
     background-color: var(--color-accent);
     border-radius: 0;
     z-index: -1;
+    /* CLAVE DE OPTIMIZACIÓN: Siempre usa transform para la animación de llenado */
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease-out;
+    will-change: transform;
 }
 
 .auth-buttons a:hover {
@@ -259,55 +268,54 @@ header nav ul li a:not(:hover)::before {
     transition: transform 0.3s ease-out;
 }
 
-/* --- MEDIA QUERY PARA TABLETS (Si quieres un layout diferente en tablets,
-       pero sin el menú hamburguesa que es solo para móviles) --- */
+/* --- MEDIA QUERY PARA TABLETS (1024px) --- */
 @media (max-width: 1024px) {
-    /* Aquí puedes tener ajustes de padding, fuente, etc., para tablets.
-       NO incluyas 'display: none;' o 'flex-direction: column;'
-       para .main-nav-group o .auth-buttons aquí si quieres que el menú
-       hamburguesa solo aparezca en MOBILE (768px para abajo).
-       Si quieres que el menú se "apile" en tablets pero sin hamburguesa,
-       entonces sí incluirías flex-direction: column y width: 100%.
-       Por ahora, lo dejo sin cambios de layout para main-nav-group/auth-buttons
-       en este rango, para que el comportamiento de escritorio se mantenga hasta 768px.
-    */
     header {
         padding: 15px 25px;
+        /* No forzamos flex-direction: column aquí para mantener el layout de escritorio
+           hasta que el menú hamburguesa se active en 768px.
+           Si quieres que el header se apile en tablets, entonces descomenta lo siguiente:
+           flex-direction: column;
+           align-items: flex-start; */
     }
-
+    /* Eliminadas las redefiniciones de ::before y ::after que usaban 'width' */
 }
 
-/* --- ESTILOS RESPONSIVOS PARA EL MENÚ HAMBURGUESA (MÓVILES) --- */
+/* --- ESTILOS RESPONSIVOS PARA EL MENÚ HAMBURGUESA (MÓVILES: 768px) --- */
 @media (max-width: 768px) {
     header {
-        flex-direction: row; /* Logo y hamburguesa en la misma fila */
-        justify-content: space-between; /* Espacio entre ellos */
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
         padding: 15px 20px;
-        /* IMPORTANTE: Cuando el menú está abierto, el header cambiará a column */
     }
 
     .main-nav-group,
     .auth-buttons {
-        /* --- ESTO OCULTA LOS ELEMENTOS POR DEFECTO EN MÓVILES --- */
-        display: none; 
-        flex-direction: column; /* Apila los ítems cuando estén visibles */
-        width: 100%; /* Ocupa todo el ancho disponible */
+        /* Oculta por defecto en móviles, se muestra con .active */
+        display: none;
+        flex-direction: column;
+        width: 100%;
         text-align: center;
         margin-left: 0;
         border-left: none;
         padding-left: 0;
-        /* Puedes añadir transiciones para una aparición suave si usas opacity/max-height */
+        /* Optimización: Agrega transiciones para una aparición/desaparición suave */
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        opacity: 0; /* Empieza invisible */
+        transform: translateY(-10px); /* Pequeño desplazamiento inicial */
+        will-change: opacity, transform;
     }
 
-    /* --- ESTO LOS MUESTRA CUANDO EL BOTÓN DE HAMBURGUESA SE ACTIVA --- */
     .main-nav-group.active,
     .auth-buttons.active {
-        display: flex; /* SOBRESCRIBE display: none; */
+        display: flex; /* Sobrescribe display: none; */
+        opacity: 1; /* Se vuelve visible */
+        transform: translateY(0); /* Vuelve a su posición original */
     }
 
     header nav ul {
-        flex-direction: column; /* Apila los ítems de navegación */
+        flex-direction: column;
         gap: 15px;
         width: 100%;
         margin-top: 20px;
@@ -330,7 +338,7 @@ header nav ul li a:not(:hover)::before {
 
     /* Mostrar el icono de hamburguesa solo en este breakpoint */
     .menu-toggle {
-        display: block; /* Ahora es visible */
+        display: block;
     }
 
     /* Ajustes para el dropdown en móvil */
@@ -343,30 +351,31 @@ header nav ul li a:not(:hover)::before {
         background-color: var(--color-secondary-dark);
         box-shadow: none;
         border-radius: 0;
-        opacity: 1; /* Siempre visible cuando se activa */
-        visibility: visible; /* Siempre visible */
+        opacity: 1; /* Siempre visible cuando se activa el menú principal */
+        visibility: visible; /* Siempre visible cuando se activa el menú principal */
         padding: 0;
+        transform: translateY(0); /* Resetea la transformación */
     }
     .dropdown-content a {
         padding: 10px 30px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
+    /* Para el dropdown en móvil, el "hover" podría ser un clic si no es un menú abierto por JS */
     .dropdown:hover .dropdown-content {
-        display: flex; /* Asegura que se muestre en hover */
+        display: flex;
     }
 
     /* --- CAMBIO DEL LAYOUT DEL HEADER CUANDO EL MENÚ ESTÁ ABIERTO --- */
     header.menu-open {
-        flex-direction: column; /* Apila el logo/hamburguesa y el menú completo */
-        align-items: flex-start; /* Alinea todo a la izquierda */
+        flex-direction: column;
+        align-items: flex-start;
     }
     header.menu-open .logo-container {
         width: 100%;
         display: flex;
-        justify-content: space-between; /* El logo y el toggle se separan */
+        justify-content: space-between;
         align-items: center;
     }
-
 }
 
 /* Media query para ajustar tamaños de fuente/padding en móviles pequeños */
@@ -391,18 +400,16 @@ header nav ul li a:not(:hover)::before {
         padding: 20px;
     }
 }
-/* --- FIN CORRECCIÓN BOTONES DE AUTENTICACIÓN --- */
 
 /* Hero Section */
 .hero-section {
     background: linear-gradient(
         to right,
-        var(--color-primary-dark) 0%, /* Inicia con el color del body */
-        var(--color-secondary-dark) 25%, /* El color secundario empieza a ser dominante antes */
-        var(--color-secondary-dark) 75%, /* El color secundario se mantiene hasta aquí */
-        var(--color-primary-dark) 100% /* Termina con el color del body */
+        var(--color-primary-dark) 0%,
+        var(--color-secondary-dark) 25%,
+        var(--color-secondary-dark) 75%,
+        var(--color-primary-dark) 100%
     );
-
     padding: 80px 20px;
     color: var(--color-text-light);
     display: flex;
@@ -411,30 +418,29 @@ header nav ul li a:not(:hover)::before {
     min-height: 500px;
     overflow: hidden;
     position: relative;
+    will-change: transform, opacity;
 }
 
 .hero-content {
-    display: flex; /* <-- Importante: Habilitar flexbox para texto y animación */
-    flex-direction: row; /* <-- Elementos uno al lado del otro por defecto */
-    align-items: center; /* Centra los elementos a lo largo del eje transversal (verticalmente) */
-    justify-content: space-between; /* <-- Espacio entre el texto y la animación */
-    
-    margin: 0 auto; /* Centrar el contenido horizontalmente */
-    gap: 40px; /* Espacio entre el texto y la animación */
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
-    position: relative; /* Para que el contenido esté sobre las partículas */
-    z-index: 2; /* Asegura que el texto y el botón estén por encima de la animación */
-    width: 100%; /* Asegura que hero-content ocupe todo el ancho disponible para su max-width */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    gap: 40px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+    width: 100%;
 }
 
 .hero-text {
-    flex: 1; /* Permite que el texto ocupe el espacio disponible */
-    min-width: 300px; /* Ancho mínimo para el texto antes de envolver */
-    text-align: left; /* <-- Importante: Alineación del texto a la izquierda */
-    padding-right: 20px; /* Espacio a la derecha del texto */
+    flex: 1;
+    min-width: 300px;
+    text-align: left;
+    padding-right: 20px;
 }
 
-/* Las propiedades h1, p, cta-button ya las tienes bien */
 .hero-section h1 {
     font-size: 3.5em;
     color: var(--color-accent);
@@ -451,57 +457,22 @@ header nav ul li a:not(:hover)::before {
     margin-bottom: 30px;
 }
 
-/* --- ESTILO BASE PARA LOS BOTONES CTA (MODIFICADO) --- */
+/* CTA Buttons */
 .cta-button {
-    /* Removimos el background-color y color base aquí para controlarlo con las nuevas clases.
-       Si este fuera el único botón, tendría un estilo muy básico. */
-    padding: 15px 30px;
-    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
     font-size: 1.2em;
     font-weight: 700;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
     margin-top: 20px;
-    
-    /* Añadido para transiciones suaves de borde y color de texto */
-    transition: background-color 0.3s ease, transform 0.2s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* --- ESTILO BASE PARA LOS BOTONES CTA (MODIFICADO PARA ESQUINAS CUADRADAS) --- */
-.cta-button {
-    padding: 15px 30px;
-    border-radius: 0; /* <<-- CAMBIO AQUÍ: Las esquinas ahora son cuadradas */
-    font-size: 1.2em;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 20px;
-    
-    transition: background-color 0.3s ease, transform 0.2s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* --- CLASES DE ESTILO ESPECÍFICAS PARA TUS BOTONES --- */
-/* --- ESTILO BASE PARA LOS BOTONES CTA (CONSOLIDADO Y CUADRADO) --- */
-/* --- ESTILO BASE PARA LOS BOTONES CTA (CONSOLIDADO Y CUADRADO) --- */
-.cta-button {
-    position: relative; /* Importante para posicionar los pseudo-elementos */
-    overflow: hidden; /* Oculta el pseudo-elemento hasta que se anime */
-    font-size: 1.2em;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 20px;
-    z-index: 1; /* Asegura que el texto esté por encima del relleno de color */
-    border-radius: 0; /* Las esquinas son cuadradas */
-    
-    /* Transiciones para un efecto suave */
+    z-index: 1;
+    border-radius: 0;
     transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    will-change: transform, background-color, color, box-shadow, border-color; /* Agrega will-change para el botón base */
 }
 
-/* Pseudo-elemento para el efecto de llenado de izquierda a derecha */
 .cta-button::before {
     content: '';
     position: absolute;
@@ -509,78 +480,78 @@ header nav ul li a:not(:hover)::before {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Detrás del texto del botón */
-    transform: scaleX(0); /* Inicialmente invisible */
-    transform-origin: left; /* Crece desde la izquierda */
-    transition: transform 0.3s ease-out; /* Animación de llenado */
+    z-index: -1;
+    /* CLAVE DE OPTIMIZACIÓN: Siempre usa transform para el llenado */
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-out;
+    will-change: transform; /* Agrega will-change aquí también */
 }
 
-/* --- CLASES DE ESTILO ESPECÍFICAS PARA TUS BOTONES --- */
-
-/* 1. Botón "Empieza Gratis": Fondo dinámico, SIN Contorno, Texto dinámico */
+/* 1. Botón "Empieza Gratis" */
 .cta-button.fill-white-dark-border {
-    background-color: var(--color-button-fill-normal-bg); /* Fondo: de la variable */
-    color: var(--color-button-fill-normal-text); /* Texto: de la variable */
-    border: none; /* Sin borde */
-    padding: 17px 32px; /* Compensado para el tamaño */
+    background-color: var(--color-button-fill-normal-bg);
+    color: var(--color-button-fill-normal-text);
+    border: none;
+    padding: 17px 32px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .cta-button.fill-white-dark-border::before {
-    background-color: var(--color-accent); /* Color de relleno del hover: Morado (de acento) */
+    background-color: var(--color-accent);
 }
 
 .cta-button.fill-white-dark-border:hover {
-    color: var(--color-button-fill-normal-text); /* Texto al hover: Permanece su color normal (de la variable) */
+    color: var(--color-button-fill-normal-text);
     box-shadow: 0 6px 15px var(--shadow-medium);
 }
 
 .cta-button.fill-white-dark-border:hover::before {
-    transform: scaleX(1); /* Se llena de izquierda a derecha al hover */
+    transform: scaleX(1);
 }
 
 .cta-button.fill-white-dark-border:not(:hover)::before {
-    transform-origin: right; /* Al salir, se encoge desde la derecha */
-    transition: transform 0.3s ease-out; /* Animación de salida */
+    transform-origin: right;
+    transition: transform 0.3s ease-out;
 }
 
-/* 2. Botón "Contacta con Ventas": Transparente, Contorno dinámico, Texto dinámico */
+/* 2. Botón "Contacta con Ventas" */
 .cta-button.outline-dark-text-dark {
-    background-color: transparent; /* Fondo base: Transparente */
-    color: var(--color-button-outline-normal-text); /* Texto base: de la variable */
-    border: 2px solid var(--color-button-outline-normal-border); /* Contorno: de la variable */
-    padding: 15px 30px; /* Mantenemos el padding original para el botón con borde */
+    background-color: transparent;
+    color: var(--color-button-outline-normal-text);
+    border: 2px solid var(--color-button-outline-normal-border);
+    padding: 15px 30px;
 }
 
 .cta-button.outline-dark-text-dark::before {
-    background-color: var(--color-button-outline-hover-fill); /* Color de relleno del hover: de la variable */
+    background-color: var(--color-button-outline-hover-fill);
 }
 
 .cta-button.outline-dark-text-dark:hover {
-    color: var(--color-button-outline-hover-text); /* Texto al hover: de la variable */
-    border-color: var(--color-button-outline-hover-fill); /* Borde al hover: de la variable de relleno */
+    color: var(--color-button-outline-hover-text);
+    border-color: var(--color-button-outline-hover-fill);
     box-shadow: 0 6px 15px var(--shadow-medium);
 }
 
 .cta-button.outline-dark-text-dark:hover::before {
-    transform: scaleX(1); /* Se llena de izquierda a derecha al hover */
+    transform: scaleX(1);
 }
 
 .cta-button.outline-dark-text-dark:not(:hover)::before {
-    transform-origin: right; /* Al salir, se encoge desde la derecha */
-    transition: transform 0.3s ease-out; /* Animación de salida */
+    transform-origin: right;
+    transition: transform 0.3s ease-out;
 }
 
-/* Si aún necesitas un botón con el color de acento como base (morado) */
+/* Botón con acento (si aún lo necesitas) */
 .cta-button.accent-filled {
     background-color: var(--color-accent);
     color: var(--color-text-light);
-    border: 2px solid var(--color-text-light); /* Borde: Blanco */
-    padding: 15px 30px; /* Mantenemos el padding original */
+    border: 2px solid var(--color-text-light);
+    padding: 15px 30px;
 }
 
 .cta-button.accent-filled::before {
-    background-color: var(--color-accent-darker); /* Color de relleno del hover */
+    background-color: var(--color-accent-darker);
 }
 
 .cta-button.accent-filled:hover {
@@ -601,13 +572,13 @@ header nav ul li a:not(:hover)::before {
 .hero-animation {
     position: relative;
     flex: 1;
-    min-width: 300px; 
+    min-width: 300px;
     height: 500px;
     overflow: hidden;
-    
     display: flex;
     justify-content: center;
     align-items: center;
+    will-change: transform, opacity; /* Si la animación del canvas se mueve/cambia */
 }
 
 .hero-animation canvas {
@@ -617,33 +588,34 @@ header nav ul li a:not(:hover)::before {
     width: 100%;
     height: 100%;
     z-index: 1;
+    /* Optimización: Sugerir al navegador que el canvas cambiará (si es animado) */
+    will-change: transform, opacity;
 }
 
 /* Features Grid */
 .features-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Fuerza una sola columna */
+    grid-template-columns: 1fr;
     gap: 40px;
     padding: 60px 40px;
-    max-width: 1200px; /* Limita el ancho máximo del contenedor principal */
+    max-width: 1200px;
     margin: 0 auto;
     justify-items: center;
 }
 
 .feature-card {
-    /*background-color: var(--color-tertiary-dark);*/
-    /*border-radius: 12px;*/
     box-shadow: 0 6px 20px var(--shadow-medium);
     padding: 30px;
+    /* CLAVE DE OPTIMIZACIÓN: Transición en transform y box-shadow para eficiencia */
     transition: transform var(--transition-speed-slow) ease, box-shadow var(--transition-speed-slow) ease, background-color var(--transition-speed-medium) ease;
-    /*border: 1px solid var(--border-accent-subtle);*/
-
     display: flex;
     align-items: center;
     gap: 25px;
     text-align: left;
     width: 100%;
-    max-width: 1200px; /* Limita el ancho máximo de cada tarjeta individualmente */
+    max-width: 1200px;
+    /* Optimización: Sugerir al navegador que estas propiedades cambiarán */
+    will-change: transform, box-shadow, background-color;
 }
 
 .feature-card:hover {
@@ -653,12 +625,12 @@ header nav ul li a:not(:hover)::before {
 }
 
 .feature-image {
-    /* --- CAMBIO CLAVE AQUÍ --- */
-    max-width: 400px; /* Aumenta este valor para hacer la imagen más grande */
+    max-width: 400px;
     height: auto;
     object-fit: contain;
     flex-shrink: 0;
     filter: drop-shadow(0 0 5px var(--color-accent));
+    will-change: filter; /* Si el filtro cambia en interacción, aunque aquí es estático */
 }
 
 .feature-card .text-content {
@@ -683,7 +655,7 @@ header nav ul li a:not(:hover)::before {
     }
 
     .feature-image {
-        max-width: 60%; /* Ajusta el tamaño de la imagen para móviles/tablets */
+        max-width: 60%;
         margin-bottom: 20px;
     }
 
@@ -699,7 +671,7 @@ header nav ul li a:not(:hover)::before {
         padding: 20px;
     }
     .feature-image {
-        max-width: 70%; /* Si quieres que sea aún más grande en móviles pequeños */
+        max-width: 70%;
     }
 }
 
@@ -746,17 +718,17 @@ header nav ul li a:not(:hover)::before {
 
 /* CTA Section */
 .cta-section {
-    background-color: var(--color-primary-dark); /* Color de fondo */
-    padding: 80px 40px; /* Espaciado interno */
-    text-align: center; /* ¡CLAVE! Centra el texto y los elementos en línea/inline-block */
-    color: var(--color-text-light); /* Color del texto */
-    /*box-shadow: 0 -4px 15px var(--shadow-medium);  Sombra superior */
-    margin-top: 60px; /* Espacio con la sección anterior */
+    background-color: var(--color-primary-dark);
+    padding: 80px 40px;
+    text-align: center;
+    color: var(--color-text-light);
+    margin-top: 60px;
+    will-change: background-color;
 }
 
 .cta-section h2 {
     font-size: 2.8em;
-    color: var(--color-accent); /* Título en morado */
+    color: var(--color-accent);
     margin-bottom: 20px;
     font-weight: 700;
 }
@@ -764,20 +736,15 @@ header nav ul li a:not(:hover)::before {
 .cta-section p {
     font-size: 1.2em;
     line-height: 1.6;
-    color: var(--color-text-card-description); /* Descripción en gris claro */
+    color: var(--color-text-card-description);
     margin-bottom: 40px;
-    max-width: 700px; /* Limita el ancho del párrafo para mejor legibilidad */
-    margin-left: auto; /* Centra el párrafo */
-    margin-right: auto; /* Centra el párrafo */
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* El CSS del botón CTA (cta-button, fill-white-dark-border, etc.) NO SE TOCA */
-/* Todas las reglas de .cta-button y sus variantes quedan como las tienes */
-
 /* Footer Styles */
-/* --- FOOTER STYLES (Mejorado) --- */
 footer {
-    /* Mantenemos el degradado horizontal */
     background: linear-gradient(
         to right,
         var(--color-primary-dark) 0%,
@@ -786,30 +753,31 @@ footer {
         var(--color-primary-dark) 100%
     );
     color: var(--color-text-muted);
-    padding: 40px 20px 20px; /* Más padding arriba para el contenido */
-    margin-top: 60px; /* Espacio con la sección superior */
+    padding: 40px 20px 20px;
+    margin-top: 60px;
     border-top: 1px solid var(--border-accent-subtle);
-    font-size: 0.95em; /* Tamaño de fuente base para el footer */
+    font-size: 0.95em;
+    will-change: background;
 }
 
 .footer-content {
     display: flex;
-    flex-wrap: wrap; /* Permite que las columnas se envuelvan en pantallas pequeñas */
-    justify-content: space-around; /* Distribuye el espacio entre las secciones */
-    gap: 30px; /* Espacio entre las columnas */
-    max-width: 1200px; /* Limita el ancho del contenido del footer */
-    margin: 0 auto; /* Centra el contenido del footer */
-    padding-bottom: 30px; /* Espacio antes de la línea de copyright */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 30px;
 }
 
 .footer-section {
-    flex: 1; /* Permite que las secciones crezcan y tomen espacio */
-    min-width: 200px; /* Ancho mínimo antes de que la columna se apile */
+    flex: 1;
+    min-width: 200px;
     padding: 15px;
 }
 
 .footer-section h3 {
-    color: var(--color-accent); /* Títulos de sección en color acento */
+    color: var(--color-accent);
     font-size: 1.3em;
     margin-bottom: 20px;
     font-weight: 600;
@@ -831,32 +799,34 @@ footer {
 }
 
 .footer-section ul li a {
-    color: var(--color-text-muted); /* Color de texto normal para los enlaces */
+    color: var(--color-text-muted);
     text-decoration: none;
     transition: color 0.3s ease;
+    will-change: color;
 }
 
 .footer-section ul li a:hover {
-    color: var(--color-text-light); /* Resalta los enlaces al pasar el ratón */
+    color: var(--color-text-light);
 }
 
 /* Redes Sociales */
 .social-icons {
     display: flex;
-    gap: 15px; /* Espacio entre los íconos */
+    gap: 15px;
     margin-top: 20px;
-    flex-wrap: wrap; /* Para que los íconos se envuelvan si hay muchos */
+    flex-wrap: wrap;
 }
 
 .social-icons a {
-    color: var(--color-text-muted); /* Color base de los íconos */
-    font-size: 1.8em; /* Tamaño de los íconos */
+    color: var(--color-text-muted);
+    font-size: 1.8em;
     transition: color 0.3s ease, transform 0.2s ease;
+    will-change: color, transform;
 }
 
 .social-icons a:hover {
-    color: var(--color-accent); /* Cambia a color acento al pasar el ratón */
-    transform: translateY(-3px); /* Pequeña elevación al pasar el ratón */
+    color: var(--color-accent);
+    transform: translateY(-3px);
 }
 
 /* Footer Bottom (Copyright) */
@@ -864,7 +834,7 @@ footer {
     text-align: center;
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08); /* Línea divisoria sutil */
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--color-text-muted);
     font-size: 0.85em;
 }
@@ -876,15 +846,15 @@ footer {
 /* Responsividad para el Footer */
 @media (max-width: 768px) {
     .footer-content {
-        flex-direction: column; /* Apila las secciones en pantallas más pequeñas */
-        align-items: center; /* Centra las secciones apiladas */
+        flex-direction: column;
+        align-items: center;
         text-align: center;
     }
 
     .footer-section {
-        min-width: unset; /* Elimina el min-width cuando se apilan */
-        width: 100%; /* Ocupa todo el ancho disponible */
-        padding: 20px 0; /* Ajusta el padding para secciones apiladas */
+        min-width: unset;
+        width: 100%;
+        padding: 20px 0;
     }
 
     .footer-section h3 {
@@ -892,7 +862,7 @@ footer {
     }
 
     .social-icons {
-        justify-content: center; /* Centra los íconos cuando están apilados */
+        justify-content: center;
     }
 }
 
@@ -901,6 +871,7 @@ footer {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity var(--transition-speed-slower) ease-out, transform var(--transition-speed-slower) ease-out;
+    will-change: opacity, transform; /* Agrega will-change para animaciones de scroll */
 }
 .animate-on-scroll.in-view {
     opacity: 1;
@@ -914,9 +885,12 @@ footer {
 
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
+    /* Aquí se eliminaron las redefiniciones problemáticas de ::before y ::after
+       que usaban 'width' en lugar de 'transform: scaleX()'.
+       Las animaciones ahora se basan en 'transform' en todos los tamaños. */
     header {
         padding: 15px 25px;
-        flex-direction: column;
+        flex-direction: column; /* Cambia a columna en tablets */
         align-items: flex-start;
     }
     header .logo-container {
@@ -943,40 +917,6 @@ footer {
         padding: 5px 0;
         background-color: transparent;
     }
-    /* Restaura el ::before y ::after para móvil a la animación de ancho */
-    header nav ul li a::before {
-        width: 0; /* Inicia sin ancho */
-        transform: none; /* Deshabilita la escala */
-        transition: width var(--transition-speed-medium) ease-out, background-color var(--transition-speed-medium) ease;
-        transform-origin: left; /* Aunque no se use scaleX, es buena práctica */
-    }
-    header nav ul li a:hover::before {
-        width: 100%; /* Se llena al 100% para móvil */
-        transform: none;
-    }
-    header nav ul li a:not(:hover)::before {
-        width: 0; /* Desaparece por la izquierda (por defecto) */
-        transform-origin: left; /* Contrae hacia la izquierda */
-        transform: none;
-    }
-
-    header nav ul li a::after {
-        left: 0;
-        transform: none; /* Elimina la transformación */
-        width: 0; /* Inicia sin ancho */
-        transition: width var(--transition-speed-medium) ease-out; /* Transición por ancho */
-        transform-origin: left;
-    }
-    header nav ul li a:hover::after {
-        width: 100%; /* Se llena al 100% para móvil */
-        transform: none;
-    }
-    header nav ul li a:not(:hover)::after {
-        width: 0; /* Desaparece por la izquierda (por defecto) */
-        transform-origin: left;
-        transform: none;
-    }
-
     .auth-buttons {
         width: 100%;
         justify-content: center;
@@ -989,39 +929,6 @@ footer {
     .auth-buttons a {
         flex: 1;
         text-align: center;
-    }
-    /* Restaura el ::before y ::after para móvil a la animación de ancho */
-    .auth-buttons a::before {
-        width: 0; /* Inicia sin ancho */
-        transform: none; /* Deshabilita la escala */
-        transition: width var(--transition-speed-medium) ease-out, background-color var(--transition-speed-medium) ease;
-        transform-origin: left;
-    }
-    .auth-buttons a:hover::before {
-        width: 100%; /* Se llena al 100% para móvil */
-        transform: none;
-    }
-    .auth-buttons a:not(:hover)::before {
-        width: 0; /* Desaparece por la izquierda (por defecto) */
-        transform-origin: left;
-        transform: none;
-    }
-
-    .auth-buttons a::after {
-        left: 0;
-        transform: none; /* Elimina la transformación */
-        width: 0; /* Inicia sin ancho */
-        transition: width var(--transition-speed-medium) ease-out; /* Transición por ancho */
-        transform-origin: left;
-    }
-    .auth-buttons a:hover::after {
-        width: 100%; /* Se llena al 100% para móvil */
-        transform: none;
-    }
-    .auth-buttons a:not(:hover)::after {
-        width: 0; /* Desaparece por la izquierda (por defecto) */
-        transform-origin: left;
-        transform: none;
     }
 }
 
