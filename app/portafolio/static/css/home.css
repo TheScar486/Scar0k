@@ -96,7 +96,7 @@ header nav ul {
     margin: 0;
     padding: 0;
     display: flex; /* Para que los ítems del menú estén en línea */
-    align-items: center;
+    align-items: left; /* Alinea verticalmente los ítems del menú para moviles */
     flex-wrap: wrap;
     gap: 25px; /* Espacio entre los ítems del menú */
 }
@@ -298,32 +298,86 @@ header nav ul li a:not(:hover)::before {
     will-change: transform; /* Optimización */
 }
 
-/* Botón de Cambio de Tema (Light/Dark Mode) */
+/* ========================================= */
+/* --- 4. theme toggle button --- */
+/* ========================================= */
+
+/* Styles for the Theme Toggle Button */
 .theme-toggle-button {
-    background-color: var(--color-accent);
-    color: var(--color-text-light);
-    border: none;
-    border-radius: 50%; /* Lo hace redondo */
-    width: 45px; /* Tamaño fijo */
-    height: 45px; /* Tamaño fijo */
-    display: flex; /* Para centrar el icono */
+    background-color: transparent;
+    color: var(--color-accent);
+    border: 1px solid var(--color-text-light); /* << Más delgado (antes 2px) */
+    border-radius: 0;
+    width: 45px;
+    height: 45px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2em; /* Tamaño del icono */
     cursor: pointer;
-    box-shadow: 0 2px 8px var(--shadow-light);
-    transition: background-color var(--transition-speed-medium) ease, transform var(--transition-speed-fast) ease, box-shadow var(--transition-speed-medium) ease;
-    flex-shrink: 0; /* Evita que se encoja en flexbox */
-    margin-left: 20px; /* Espacio con los auth-buttons */
-    z-index: 1001; /* Asegura que esté por encima de casi todo */
-    order: 4; /* Lo coloca al final de los elementos del header en desktop */
-    will-change: background-color, transform, box-shadow; /* Optimización */
+    font-size: 1.4em;
+    transition: background-color var(--transition-speed-medium) ease,
+                color var(--transition-speed-medium) ease,
+                border-color var(--transition-speed-medium) ease,
+                box-shadow var(--transition-speed-medium) ease; /* << Quitamos transform */
+    box-shadow: 0 2px 5px var(--shadow-light);
+    margin-right: 20px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Efecto Hover del Botón */
 .theme-toggle-button:hover {
-    background-color: var(--color-accent-darker);
-    transform: translateY(-2px); /* Pequeño efecto de elevación */
-    box-shadow: 0 4px 12px var(--shadow-medium);
+    background-color: var(--color-accent);
+    color: var(--color-text-dark);
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 10px var(--shadow-medium);
+    /* transform: translateY(-2px); <-- Eliminado */
+}
+
+/* Estilos de los Íconos dentro del Botón */
+.theme-toggle-button i {
+    pointer-events: none;
+    position: absolute;
+    transition: opacity var(--transition-speed-medium) ease,
+                transform var(--transition-speed-medium) ease;
+}
+
+/* Visibilidad de íconos en modo claro */
+.theme-toggle-button .fa-moon {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+.theme-toggle-button .fa-sun {
+    opacity: 0;
+    transform: rotate(90deg);
+}
+
+/* Modo Oscuro */
+body.dark-mode .theme-toggle-button {
+    background-color: var(--color-tertiary-dark);
+    border-color: var(--color-text-light);
+    color: var(--color-accent);
+    box-shadow: 0 2px 5px var(--shadow-light);
+}
+
+body.dark-mode .theme-toggle-button:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text-dark);
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 10px var(--shadow-medium);
+}
+
+/* Iconos en modo oscuro */
+body.dark-mode .theme-toggle-button .fa-moon {
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+
+body.dark-mode .theme-toggle-button .fa-sun {
+    opacity: 1;
+    transform: rotate(0deg);
 }
 
 /* ========================================= */
@@ -727,7 +781,7 @@ footer {
 }
 
 /* ========================================= */
-/* --- 8. Media Queries (Responsividad) --- */
+/* --- 8. Media (Responsividad) --- */
 /* ========================================= */
 
 /* Para pantallas entre 769px y 1024px (Tablets y Laptops pequeñas) */
@@ -773,74 +827,123 @@ footer {
     }
 }
 
-/* Para pantallas de hasta 768px (Móviles y Tablets en vertical) */
+/* ========================================= */
+/* --- 8. Media Queries (Responsividad) --- */
+/* ========================================= */
+
+/* ... (Tu CSS existente para @media (max-width: 1024px) - sin cambios aquí) ... */
+
 @media (max-width: 768px) {
     body {
-        padding: 0 15px; /* Menos padding lateral en móviles */
+        padding: 0 15px;
+        margin: 0;
     }
 
     header {
-        flex-direction: row; /* Mantiene logo, toggle y botón de tema en la misma fila */
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 20px;
+        position: fixed;            /* Lo mantiene fijo en la pantalla */
+        top: 0;                     /* Lo fija en la parte superior */
+        left: 0;
+        right: 0;
+        z-index: 10000;             /* 💡 ¡AUMENTADO! Asegura que esté por encima de casi todo. Antes 999. */
+        background-color: var(--color-primary-dark); /* 💡 Usar tu variable para asegurar consistencia */
+        padding: 10px 15px;
+        box-shadow: 0 2px 5px var(--shadow-light); /* Usar tu variable de sombra */
+        /* Aseguramos que el header ocupe su propio espacio para calcular el margen del main */
+        height: auto; /* Permite que la altura se ajuste al contenido */
+        min-height: 60px; /* Un valor mínimo si el contenido es escaso */
+    }
+
+    main {
+        margin-top: 80px; /* Ajusta según la altura real del header */
+    }
+
+    /* El logo se mantiene a la izquierda */
+    header .logo-container {
+        order: 1; /* Primero en el orden Flexbox */
     }
 
     /* Oculta los elementos de navegación y autenticación por defecto en móvil */
     .main-nav-group,
     .auth-buttons {
-        display: none; /* Se ocultan */
-        flex-direction: column; /* Para que los enlaces se apilen verticalmente cuando se muestren */
-        width: 100%;
-        text-align: center;
+        display: none;
+        flex-direction: column;
+        width: 100%; /* Ocupa todo el ancho cuando se muestra */
+        text-align: left;
         margin-left: 0;
         border-left: none;
         padding-left: 0;
-        /* Transiciones para una aparición/desaparición suave */
         transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        opacity: 0; /* Inicialmente invisible */
-        transform: translateY(-10px); /* Pequeño desplazamiento inicial */
+        opacity: 0;
+        transform: translateY(-10px);
         will-change: opacity, transform;
+        order: 99; /* Siempre se posicionarán al final del Flexbox, debajo de la barra superior */
+        margin-top: 20px; /* Espacio desde la barra superior */
     }
 
     /* Clase 'active' (añadida por JS) para mostrar los menús */
     .main-nav-group.active,
     .auth-buttons.active {
-        display: flex; /* Sobrescribe display: none; */
-        opacity: 1; /* Se vuelve visible */
-        transform: translateY(0); /* Vuelve a su posición original */
+        display: flex;
+        opacity: 1;
+        transform: translateY(0);
     }
 
-    /* Mostrar el botón de hamburguesa solo en este breakpoint */
+    /* --- Agrupando el Botón de Tema y el Botón de Menú a la Derecha --- */
+    /* ¡IMPORTANTE! Necesitas añadir un nuevo div con esta clase en tu HTML para envolver los dos botones */
+    .header-controls-group {
+        display: flex; /* Para que los botones se alineen en fila dentro de este grupo */
+        align-items: center;
+        margin-left: auto; /* ¡CLAVE! Empuja este grupo de botones hacia la extrema derecha */
+        order: 2; /* Posiciona este grupo después del logo en el header */
+    }
+
+    /* Botón de Hamburguesa (para móviles) */
     .menu-toggle {
-        display: block;
-        order: 2; /* Para que esté a la derecha del logo, antes del theme-toggle */
-        margin-left: auto; /* Empuja el toggle a la derecha, dejando espacio para el logo */
-        margin-right: 15px; /* Espacio entre el toggle y el botón de tema */
+        display: block; /* Siempre visible */
+        font-size: 1.8em;
+        color: var(--color-accent);
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        z-index: 1001;
+        will-change: transform;
+        margin-left: 15px; /* Espacio entre el botón de tema y el botón de menú */
+        margin-right: 0; /* Sin margen externo en este botón */
+        order: unset; /* Se eliminan los órdenes específicos, la posición la maneja el padre .header-controls-group */
+        position: static; /* Asegura que no tenga posicionamiento absoluto */
+        top: unset; /* Se eliminan propiedades de posicionamiento absoluto anteriores */
+        right: unset;
+        transform: unset; /* Se eliminan transformaciones anteriores */
     }
 
     /* Ajuste para el botón de alternar tema en móviles */
     .theme-toggle-button {
-        order: 3; /* Asegura que el botón de tema esté al final de la fila en móviles */
-        margin-left: 0; /* Ya no necesita margen extra si el toggle lo empuja */
         width: 40px; /* Un poco más pequeño para móviles */
         height: 40px;
         font-size: 1em;
+        z-index: 1001;
+        margin-left: 0; /* Sin margen externo en este botón */
+        margin-right: 0; /* El espacio lo maneja el margin-left del menu-toggle */
+        order: unset; /* Se eliminan los órdenes específicos */
+        position: static; /* Asegura que no tenga posicionamiento absoluto */
+        top: unset; /* Se eliminan propiedades de posicionamiento absoluto anteriores */
+        right: unset;
+        transform: unset; /* Se eliminan transformaciones anteriores */
     }
 
+    /* El resto de tu CSS para móviles (header nav ul, auth-buttons, dropdown, hero-section, etc.) */
     header nav ul {
-        flex-direction: column; /* Apila los ítems del menú */
+        flex-direction: column;
         gap: 15px;
         width: 100%;
         margin-top: 20px;
     }
-
     header nav ul li a {
         padding: 12px 0;
         font-size: 1.1em;
         width: 100%;
     }
-
     .auth-buttons {
         gap: 10px;
         margin-top: 15px;
@@ -849,59 +952,31 @@ footer {
         width: 100%;
         padding: 12px 0;
     }
-
-    /* Ajustes para el dropdown en móvil */
     .dropdown {
         width: 100%;
     }
     .dropdown-content {
-        position: static; /* Cambia a estático para que se muestre en el flujo normal del menú apilado */
+        position: static;
         width: 100%;
         background-color: var(--color-secondary-dark);
         box-shadow: none;
         border-radius: 0;
-        opacity: 1; /* Siempre visible cuando se activa el menú principal en móvil */
+        opacity: 1;
         visibility: visible;
         padding: 0;
-        transform: translateY(0); /* Resetea la transformación */
+        transform: translateY(0);
     }
     .dropdown-content a {
         padding: 10px 30px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1); /* Separador entre ítems de dropdown */
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
-    /* En móvil, el hover del dropdown principal no es relevante; el JS lo manejará con un clic */
     .dropdown:hover .dropdown-content {
-        display: flex; /* Asegura que se muestre como flex */
-    }
-
-    /* --- CAMBIO DEL LAYOUT DEL HEADER CUANDO EL MENÚ ESTÁ ABIERTO (clase menu-open en el header) --- */
-    header.menu-open {
-        flex-direction: column; /* Apila todo el contenido del header */
-        align-items: flex-start;
-        padding: 15px 20px;
-    }
-    header.menu-open .logo-container {
-        width: 100%;
         display: flex;
-        justify-content: space-between; /* Mantiene logo y toggles alineados horizontalmente arriba */
-        align-items: center;
-        margin-bottom: 20px; /* Espacio antes del menú desplegado */
-        order: unset; /* Resetea el orden si no es necesario */
-    }
-    header.menu-open .menu-toggle {
-        display: block; /* Asegura que el toggle siga visible */
-        margin-left: auto; /* Mantiene el toggle a la derecha del logo */
-    }
-    header.menu-open .theme-toggle-button {
-        display: block; /* Asegura que el botón de tema siga visible */
-        position: static; /* No debe ser absoluto cuando el header está en columna */
-        margin-left: 15px; /* Mantiene espacio con el toggle */
-        order: unset; /* Resetea el orden si no es necesario */
     }
 
     /* Hero Section en móviles */
     .hero-content {
-        flex-direction: column; /* Apila el texto y la animación */
+        flex-direction: column;
         text-align: center;
         gap: 30px;
     }
@@ -915,17 +990,17 @@ footer {
         font-size: 1em;
     }
     .hero-animation {
-        height: 300px; /* Menor altura para la animación en móvil */
+        height: 300px;
         width: 100%;
     }
     .hero-buttons {
-        justify-content: center; /* Centra los botones */
-        flex-direction: column; /* Apila los botones si no caben */
+        justify-content: center;
+        flex-direction: column;
         align-items: center;
     }
     .cta-button {
-        width: 100%; /* Botones de ancho completo */
-        max-width: 300px; /* Limita el ancho máximo */
+        width: 100%;
+        max-width: 300px;
     }
 
     /* Features Grid en móviles */
@@ -934,15 +1009,14 @@ footer {
         gap: 30px;
     }
     .feature-card {
-        flex-direction: column; /* Siempre apila imagen y texto */
+        flex-direction: column;
         text-align: center;
         padding: 20px;
     }
     .feature-image {
-        max-width: 70%; /* Imágenes un poco más grandes en móvil */
+        max-width: 70%;
         margin-bottom: 15px;
     }
-    /* Reseteamos la dirección para móviles ya que siempre es columna */
     .feature-card:nth-child(odd),
     .feature-card:nth-child(even) {
         flex-direction: column;
@@ -968,7 +1042,7 @@ footer {
 
     /* Footer en móviles */
     .footer-content {
-        flex-direction: column; /* Apila las secciones del footer */
+        flex-direction: column;
         align-items: center;
         text-align: center;
         gap: 20px;
@@ -982,6 +1056,8 @@ footer {
         justify-content: center;
     }
 }
+
+/* ... (Tu CSS existente para @media (max-width: 480px) - sin cambios aquí) ... */
 
 /* Para pantallas de hasta 480px (Móviles pequeños) */
 @media (max-width: 480px) {
@@ -1020,22 +1096,50 @@ footer {
 /* ========================================= */
 /* --- 9. Animaciones de Scroll (General) --- */
 /* ========================================= */
-.animate-on-scroll {
+/* Variables CSS para consistencia */
+:root {
+    --transition-speed-smooth: 0.3s; /* Para la transición al aplicar el zoom/paralaje */
+    --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- Estilos base para las tarjetas de zoom al scroll (`.scroll-zoom-card`) --- */
+.scroll-zoom-card {
+    will-change: transform, opacity; /* Optimización de rendimiento */
+    /* Transición suave para los cambios de transform y opacity aplicados por JS */
+    transition: transform var(--transition-speed-smooth) ease-out, 
+                opacity var(--transition-speed-smooth) ease-out;
+    
+    /* Estado inicial que se controlará por el JS de forma dinámica */
+    /* Para la primera carga y para cuando estén muy lejos del centro */
+    transform: translateY(50px) scale(0.9);
+    opacity: 0; 
+}
+
+/* No necesitamos `.in-view` aquí, ya que el JS controlará directamente
+   el `transform` y `opacity` en base a la posición de scroll.
+*/
+
+/* --- Estilos para la imagen y el contenido de texto (reset) --- */
+/* Quitamos cualquier animación anterior o estilos que puedan causar problemas */
+.feature-image,
+.text-content {
+    /* Aseguramos que no haya animaciones CSS predefinidas que interfieran */
+    animation: none !important; 
+    transition: none !important;
+    filter: none !important;
+    opacity: 1 !important; /* Aseguramos que siempre sean visibles dentro de la tarjeta */
+    transform: none !important;
+    /* Ajusta según sea necesario si quieres que el texto o la imagen tengan su propio fade-in/slide-up una vez que la tarjeta está visible */
+}
+
+/* Si quieres que el texto o la imagen aparezcan con un pequeño fade-in DESPUÉS de que la tarjeta se ha hecho grande: */
+.scroll-zoom-card .feature-image,
+.scroll-zoom-card .text-content {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity var(--transition-speed-slower) ease-out, transform var(--transition-speed-slower) ease-out;
-    will-change: opacity, transform; /* Optimización */
+    transition: opacity 0.5s ease-in-out;
 }
 
-.animate-on-scroll.in-view {
+.scroll-zoom-card.in-viewport .feature-image,
+.scroll-zoom-card.in-viewport .text-content {
     opacity: 1;
-    transform: translateY(0);
 }
-
-/* Retrasos para las animaciones en cascada */
-.delay-2 { transition-delay: 0.1s; }
-.delay-3 { transition-delay: 0.2s; }
-.delay-4 { transition-delay: 0.3s; }
-.delay-5 { transition-delay: 0.4s; }
-.delay-6 { transition-delay: 0.5s; }
-.delay-7 { transition-delay: 0.6s; }

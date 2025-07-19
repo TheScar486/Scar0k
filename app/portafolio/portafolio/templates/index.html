@@ -4,50 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Scar0k - Portafolio de Diseñador Web</title>
+    <title>Scar0k - Portafolio de Diseñador Web</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'css/home/theme-switcher.css' %}" id="theme-link">
+    <link rel="stylesheet" href="{% static 'css/theme-switcher.css' %}" id="theme-link">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}"> {# Aquí estará el nuevo CSS #}
 </head>
 <body>
 
-
     <header>
         <div class="logo-container">
-            <img src="{% static 'img/logo.png' %}" alt="Scar0k Logo" class="logo"> {# Considera usar tu avatar o iniciales aquí #}
+            <img src="{% static 'img/logo.png' %}" alt="Scar0k Logo" class="logo">
             <span class="app-name">Scar0k</span>
         </div>
 
-        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-
-        <nav class="main-nav-group" id="mainNavGroup" aria-label="Navegación principal del portafolio">
+        <div class="header-controls-group">
+            <button id="theme-toggle-button" class="theme-toggle-button" aria-label="Toggle light/dark theme">
+                <i class="fa-solid fa-sun"></i>
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        <nav class="main-nav-group" id="mainNavGroup" aria-label="Navegación principal del sitio">
             <ul>
-                <li><a href="#hero" title="Volver al inicio del portafolio">Inicio</a></li>
+                <li>
+                    <a href="#hero" title="Volver al inicio del portafolio">Inicio</a>
+                </li>
                 <li><a href="#projects" title="Ver mis proyectos de diseño">Proyectos</a></li>
-                <li><a href="#services" title="Descubre los servicios que ofrezco">Servicios</a></li>
                 <li class="dropdown" role="menu">
                     <a href="#" aria-haspopup="true" aria-expanded="false" id="about-menu-trigger">Acerca de</a>
                     <div class="dropdown-content" aria-labelledby="about-menu-trigger" role="menu">
-                        <a href="#about-me" role="menuitem">Mi Historia</a> {# Puedes enlazar a una sección "Acerca de Mí" #}
-                        <a href="{% static 'docs/curriculum_vitae.pdf' %}" target="_blank" role="menuitem">Mi CV</a> {# Enlace a tu CV en PDF #}
+                        <a href="#about-me" role="menuitem">Mi Historia</a>
+                        <a href="{% static 'docs/curriculum_vitae.pdf' %}" target="_blank" role="menuitem">Mi CV</a>
                     </div>
                 </li>
-                <li><a href="#contact" title="Ponte en contacto conmigo">Contacto</a></li>
+                <li><a href="#services" title="Descubre los servicios que ofrezco">Servicios</a></li>
+                <li class="dropdown" role="menu">
+                    <a href="#" aria-haspopup="true" aria-expanded="false" id="contact-menu-trigger">Contacto</a>
+                    <div class="dropdown-content" aria-labelledby="contact-menu-trigger" role="menu">
+                        <a href="https://wa.me/50245064229?text=Hola,%20estoy%20interesado%20en%20tus%20servicios%20de%20desarrollo%20web.%20%C2%BFPodr%C3%ADas%20brindarme%C2%A0m%C3%A1s%C2%A0informaci%C3%B3n%3F" target="_blank" role="menuitem">WhatsApp</a>
+                        <a href="tel:+50245064229" role="menuitem">Teléfono</a>
+                        <a href="mailto:solorzanoo235@gmail.com" role="menuitem">Correo</a>
+                    </div>
+                </li>
             </ul>
         </nav>
 
-        <div class="auth-buttons" id="authButtons"> {# Puedes cambiar estos enlaces a algo como "Blog" o "Testimonios" #}
+        <div class="auth-buttons" id="authButtons">
             <a href="#">Blog</a>
             <a href="#">Testimonios</a>
         </div>
-        
-        <button id="theme-toggle-button" class="theme-toggle-button">
-            <i class="fa-solid fa-moon"></i>
-        </button>
-
     </header>
 
     <main>
@@ -62,15 +71,15 @@
                     </div>
                 </div>
                 <div class="hero-animation">
-                    <canvas id="hero-canvas"></canvas> {# Puedes adaptar esta animación a algo más visual para un portafolio #}
+                    <canvas id="hero-canvas"></canvas>
                 </div>
             </div>
         </section>
 
         <section class="features-grid" id="projects">
-            <h2 class="visually-hidden">Mis Proyectos Destacados</h2> 
+            <h2 class="visually-hidden">Mis Proyectos Destacados</h2>
             
-            <article class="feature-card animate-on-scroll delay-2">
+            <article class="feature-card scroll-zoom-card"> {# Nueva clase aquí #}
                 <img src="{% static 'img/proyecto_web_1.png' %}" alt="Proyecto de Diseño Web 1" class="feature-image">
                 <div class="text-content">
                     <h2>Proyecto: Landing Page para Startup "EcoGrow"</h2>
@@ -85,7 +94,7 @@
                 </div>
             </article>
 
-            <article class="feature-card animate-on-scroll delay-3">
+            <article class="feature-card scroll-zoom-card"> {# Y aquí #}
                 <img src="{% static 'img/proyecto_app_2.png' %}" alt="Proyecto de Diseño de Aplicación Móvil 2" class="feature-image">
                 <div class="text-content">
                     <h2>Proyecto: Aplicación Móvil "FitJourney"</h2>
@@ -100,7 +109,7 @@
                 </div>
             </article>
 
-            <article class="feature-card animate-on-scroll delay-4">
+            <article class="feature-card scroll-zoom-card"> {# Y aquí #}
                 <img src="{% static 'img/proyecto_rebranding_3.png' %}" alt="Proyecto de Rebranding 3" class="feature-image">
                 <div class="text-content">
                     <h2>Proyecto: Rebranding Completo para "Café del Sol"</h2>
@@ -115,7 +124,7 @@
                 </div>
             </article>
 
-            <article class="feature-card animate-on-scroll delay-5">
+            <article class="feature-card scroll-zoom-card"> {# Y aquí #}
                 <img src="{% static 'img/proyecto_ecommerce_4.png' %}" alt="Proyecto de E-commerce 4" class="feature-image">
                 <div class="text-content">
                     <h2>Proyecto: E-commerce para Boutique de Joyería "Gema Única"</h2>
@@ -131,7 +140,7 @@
             </article>
 
             {# Sección de Servicios #}
-            <section class="feature-card animate-on-scroll delay-6" id="services">
+            <article class="feature-card scroll-zoom-card" id="services">
                 <img src="{% static 'img/servicios_diseno.png' %}" alt="Icono de Servicios de Diseño" class="feature-image">
                 <div class="text-content">
                     <h2>Mis Servicios</h2>
@@ -145,25 +154,24 @@
                     </ul>
                     <p>¿Tienes un proyecto en mente? ¡Cuéntame!</p>
                 </div>
-            </section>
+            </article>
             
             {# Sección Acerca de Mí #}
-            <section class="feature-card animate-on-scroll delay-7" id="about-me">
+            <article class="feature-card scroll-zoom-card" id="about-me">
                 <img src="{% static 'img/perfil.png' %}" alt="Foto de perfil de Scar0k" class="feature-image">
                 <div class="text-content">
                     <h2>Acerca de Mí</h2>
                     <p>Soy Oscar, un diseñador web apasionado con 2 años de experiencia en la creación de soluciones digitales atractivas y funcionales. Mi enfoque es entender a fondo tus necesidades para ofrecer diseños que no solo luzcan bien, sino que también cumplan con tus objetivos de negocio.</p>
-                    <p>Me Especialidades: Diseño responsive · Accesibilidad web · Animaciones interactivas · UI/UX Design · Consumo de APIs · SEO técnico · Optimización de rendimiento · Testing frontend · Integración con frameworks modernos. Fuera del diseño, disfruto la fotografía, leer sobre nuevas tecnologías, el café.</p>
+                    <p>Mis especialidades incluyen: Diseño responsive, accesibilidad web, animaciones interactivas, UI/UX Design, consumo de APIs, SEO técnico, optimización de rendimiento, testing frontend, e integración con frameworks modernos. Fuera del diseño, disfruto la fotografía, leer sobre nuevas tecnologías y el buen café.</p>
                     <p>¡Siempre estoy listo para un nuevo desafío creativo!</p>
                 </div>
-            </section>
-            
+            </article>
         </section>
 
         <section class="cta-section" id="contact">
             <h2>¿Listo para empezar tu próximo proyecto?</h2>
             <p>Trabajemos juntos para crear algo increíble. ¡Hablemos de tu visión!</p>
-            <a href="https://wa.me/50245064229?text=Hola,%20estoy%20interesado%20en%20tus%20servicios%20de%20desarrollo%20web.%20%C2%BFPodr%C3%ADas%20brindarme%20m%C3%A1s%20informaci%C3%B3n%3F" 
+            <a href="https://wa.me/50245064229?text=Hola,%20estoy%20interesado%20en%20tus%20servicios%20de%20desarrollo%20web.%20%C2%BFPodr%C3%ADas%20brindarme%C2%A0m%C3%A1s%C2%A0informaci%C3%B3n%3F" 
             class="cta-button fill-white-dark-border" 
             style="text-decoration: none; display: inline-block;"
             target="_blank">
@@ -190,14 +198,14 @@
                 </ul>
             </nav>
 
-            <div class="footer-section legal-contact">
+            <nav class="footer-section legal-contact" aria-label="Enlaces legales y de contacto del pie de página">
                 <h3>Contacto</h3>
                 <ul>
-                    <li><a href="mailto:tu.solorzanoo235@gmail.com">solorzanoo235@gmail.com</a></li>
+                    <li><a href="mailto:solorzanoo235@gmail.com">solorzanoo235@gmail.com</a></li>
                     <li><a href="tel:+50245064229">+502 45064229</a></li>
                     <li>Guatemala, Guatemala</li>
                 </ul>
-            </div>
+            </nav>
 
             <div class="footer-section social">
                 <h3>Conéctate Conmigo</h3>
@@ -206,7 +214,6 @@
                     <a href="https://behance.net/tuperfil" target="_blank" aria-label="Behance"><i class="fab fa-behance"></i></a>
                     <a href="https://dribbble.com/tuperfil" target="_blank" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
                     <a href="https://github.com/tuperfil" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    {# Puedes añadir más si lo necesitas, ej: Twitter, Instagram si son profesionales #}
                     <a href="https://x.com/tuusuario" target="_blank" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
@@ -216,15 +223,17 @@
         </div>
     </footer>
 
+    <script src="{% static 'js/animations.js' %}"></script> {# Aquí estará el nuevo JS #}
     <script src="{% static 'js/home.js' %}"></script>
     <script src="{% static 'js/theme-switcher.js' %}"></script>
     <script src="{% static 'js/hero_canva.js' %}"></script>
+
     <script>
     document.getElementById('whatsapp-button').addEventListener('click', function() {
-        const phone = '50245064229';  // Tu número con código de país
+        const phone = '50245064229';   // Tu número con código de país
         const message = encodeURIComponent('Hola Scar0k, vi tu portafolio y quisiera consultarte sobre mi proyecto web. ¿Podrías brindarme más información?');
         window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
     });
-</script>
+    </script>
 </body>
 </html>
