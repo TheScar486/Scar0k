@@ -1,68 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const zoomCards = document.querySelectorAll('.scroll-zoom-card');
+    const featureCards = document.querySelectorAll('.feature-card.scroll-zoom-card');
 
-    const animateZoomCard = () => {
-        zoomCards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-
-            // Calcular el punto medio de la tarjeta en relación con el viewport
-            const cardCenter = rect.top + rect.height / 2;
-            const viewportCenter = viewportHeight / 2;
-
-            // Determinar qué tan lejos está el centro de la tarjeta del centro del viewport
-            // Un valor de 0 significa que la tarjeta está en el centro.
-            // Valores positivos/negativos indican si está por encima/debajo del centro.
-            let distance = cardCenter - viewportCenter;
-
-            // Normalizar la distancia a un valor entre -1 y 1 (o similar)
-            // Esto nos ayuda a controlar la intensidad de la animación
-            // Ajusta el divisor (ej: 300) para cambiar la sensibilidad del zoom/movimiento
-            const normalizedDistance = distance / (viewportHeight / 2); 
-
-            let scale = 1;
-            let translateY = 0;
-
-            // Aplicar escala y traslación solo cuando la tarjeta está visible o cerca
-            if (cardCenter > -rect.height && cardCenter < viewportHeight + rect.height) {
-                // Cuanto más cerca del centro, más grande y menos desplazamiento
-                // Ajusta los multiplicadores (ej: 0.1 para scale, 20 para translateY)
-                // Para el zoom: si la distancia es grande (lejos del centro), la escala es menor.
-                // Cuanto más cerca del centro (distancia cerca de 0), la escala se acerca a 1.
-                scale = 1 - Math.abs(normalizedDistance * 0.15); // Factor de zoom
-                scale = Math.max(0.9, Math.min(1.05, scale)); // Limita la escala entre 0.9 y 1.05
-
-                // Para el efecto de paralaje: movimiento vertical sutil
-                translateY = normalizedDistance * -15; // Mueve un poco la tarjeta
-            }
-
-            // Aplicar las transformaciones
-            card.style.transform = `translateY(${translateY}px) scale(${scale})`;
-            card.style.opacity = Math.max(0.3, Math.min(1, 1 - Math.abs(normalizedDistance * 0.5))); // Opacidad suave
-        });
+    const observerOptions = {
+        root: null, // El viewport es el root
+        rootMargin: '0px',
+        // Cambiamos el threshold para que sea un solo valor pequeño o un array
+        // Si es 0, detecta en cuanto un pixel del elemento es visible/invisible.
+        // Si es un array, se activa en cada porcentaje.
+        threshold: 0.05 // <-- AJUSTE CLAVE AQUÍ: Detecta la entrada/salida muy rápidamente (cuando el 5% es visible)
+        // Opcional, para un control más fino: threshold: [0, 0.25, 0.5, 0.75, 1] y CSS más complejo.
     };
 
-    // Escuchar el evento de scroll para actualizar la animación
-    window.addEventListener('scroll', animateZoomCard);
-    // Ejecutar una vez al cargar para establecer el estado inicial
-    animateZoomCard(); 
-
-    // Opcional: Para una animación inicial al cargar la página
-    // Puedes mantener una simple animación de entrada si quieres que aparezcan al principio
-    const initialObserver = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
-                entry.target.style.transform = 'translateY(0) scale(1)';
-                entry.target.style.opacity = '1';
-                observer.unobserve(entry.target);
+                // Si el elemento entra al viewport (o sigue dentro)
+                entry.target.classList.add('is-visible');
+            } else {
+                // Si el elemento sale del viewport (o empieza a salir)
+                entry.target.classList.remove('is-visible');
             }
         });
-    }, { threshold: 0.1 });
+    }, observerOptions);
 
-    zoomCards.forEach(card => {
-        card.style.transform = 'translateY(50px) scale(0.9)'; // Estado inicial fuera de vista
-        card.style.opacity = '0';
-        initialObserver.observe(card);
+    featureCards.forEach(card => {
+        observer.observe(card);
+    });
+
+    // OPTIMIZACIÓN INICIAL: Asegurarse de que los elementos visibles al cargar ya tengan la clase
+    // Esto evita un "parpadeo" inicial si el JS se carga después del renderizado.
+    // Esto se ejecutará una vez al cargar la página
+    const initialCheckObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                // Una vez que se ha comprobado la visibilidad inicial, ya no necesitamos este observador para este elemento
+                initialCheckObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 }); // Un umbral bajo para la comprobación inicial
+
+    featureCards.forEach(card => {
+        initialCheckObserver.observe(card);
     });
 });
