@@ -907,89 +907,6 @@ body.dark-mode .theme-toggle-button .fa-sun {
     cursor: pointer;
 }
 
-/* Media Queries para Responsividad */
-@media (max-width: 768px) {
-    .free-trial-summary {
-        padding: 30px 15px;
-        margin: 40px auto;
-    }
-
-    .free-trial-summary h2 {
-        font-size: 1.8em;
-    }
-
-    .free-trial-summary p {
-        font-size: 1em;
-    }
-
-    .free-trial-benefits {
-        gap: 30px;
-    }
-
-    .benefit-item {
-        width: 140px;
-    }
-
-    .benefit-item i {
-        font-size: 3em;
-    }
-
-    .benefit-item h4 {
-        font-size: 1.05em;
-    }
-
-    .free-trial-summary .cta-button {
-        padding: 12px 25px;
-        font-size: 1em;
-    }
-}
-
-/* ============================================== */
-/* --- 8. Media (Responsividad) max-width 480 --- */
-/* ============================================== */
-
-@media (max-width: 480px) {
-    .free-trial-summary {
-        padding: 25px 10px;
-        margin: 30px auto;
-        border-radius: 5px;
-    }
-
-    .free-trial-summary h2 {
-        font-size: 1.6em;
-    }
-
-    .free-trial-benefits {
-        flex-direction: column; /* Apila los beneficios verticalmente en móviles */
-        align-items: center;
-        gap: 25px;
-    }
-
-    .benefit-item {
-        width: 85%; /* Ocupa más ancho en móvil */
-        flex-direction: row; /* Icono al lado del texto */
-        text-align: left;
-        justify-content: flex-start; /* Alinea los elementos al inicio */
-        gap: 20px; /* Espacio entre icono y texto */
-    }
-
-    .benefit-item i {
-        font-size: 2.8em;
-        margin-bottom: 0;
-        min-width: 50px; /* Asegura un ancho mínimo para el icono */
-    }
-
-    .benefit-item h4 {
-        font-size: 1.1em;
-    }
-
-    .free-trial-summary .cta-button {
-        width: 100%; /* Botón de ancho completo */
-        padding: 10px 20px;
-        font-size: 0.95em;
-    }
-}
-
 /* ======================== */
 /* --- 7. Footer Styles --- */
 /* ======================== */
@@ -1152,12 +1069,12 @@ footer {
     }
 
     header {
-        position: fixed;          /* Lo mantiene fijo en la pantalla */
+        /*position: fixed;*/         /* Lo mantiene fijo en la pantalla */
         top: 0;                   /* Lo fija en la parte superior */
         left: 0;
         right: 0;
         z-index: 999;             /* Asegura que esté por encima de otros elementos */
-        background-color: white; /* O el color que uses en tu header */
+        /*background-color: white;  O el color que uses en tu header */
         padding: 10px 15px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra opcional */
     }
@@ -1323,7 +1240,7 @@ footer {
         padding: 20px;
     }
     .feature-image {
-        max-width: 70%;
+        max-width: 100%;
         margin-bottom: 15px;
     }
     .feature-card:nth-child(odd),
@@ -1405,8 +1322,3 @@ footer {
         font-size: 0.9em;
     }
 }
-
-/* ========================================= */
-/* --- 9. Animaciones de Scroll (General) --- */
-/* ========================================= */
-/* Variables CSS para consistencia */
